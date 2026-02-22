@@ -1,0 +1,8 @@
+# Ignore environment variables
+.env.local
+
+# .next build output
+.next
+
+# node_modules
+node_modules
