@@ -3,14 +3,14 @@
 Use this checklist to track progress. Agents must update it as work is completed.
 
 ## Slice 0 — Foundations
-- [ ] Supabase project created (hosted or local)
-- [ ] Migrations applied (extensions, profiles, baseline tables)
-- [ ] Auth working in Next.js (login/signup/logout)
-- [ ] Role stored in `profiles` (employee/hr)
-- [ ] Middleware enforces role-based routing
-- [ ] Employee dashboard page loads
-- [ ] HR dashboard page loads
-- [ ] Manual test documented (steps + expected behavior)
+- [x] Supabase project created (hosted or local)
+- [x] Migrations applied (extensions, profiles, baseline tables)
+- [x] Auth working in Next.js (login/signup/logout)
+- [x] Role stored in `profiles` (employee/hr)
+- [x] Middleware enforces role-based routing
+- [x] Employee dashboard page loads
+- [x] HR dashboard page loads
+- [x] Manual test documented (steps + expected behavior)
 
 ## Slice 1 — Resume Ingestion (Employee)
 - [ ] UI: resume paste/upload page exists
