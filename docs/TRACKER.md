@@ -41,10 +41,11 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [ ] Results look plausible on real data
 
 ## Slice 4 — Matching (HR → Candidates)
-- [ ] RPC: `match_candidates_for_job` exists and works
-- [ ] Deterministic overlap scoring implemented
-- [ ] UI: ranked candidates list for a job
-- [ ] Explainability shown (overlap + missing)
+- [x] RPC: `match_candidates_for_job` exists and works
+- [x] Deterministic overlap scoring implemented
+- [x] UI: ranked candidates list for a job
+- [x] Explainability shown (overlap + missing)
+- [x] HR jobs listing page with "View Candidates" links
 - [ ] Results look plausible on real data
 
 ## Slice 5 — Gap Analysis
