@@ -33,12 +33,11 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Tested on 3 real job descriptions
 
 ## Slice 3 — Matching (Employee → Jobs)
-- [ ] RPC: `match_jobs_for_resume` exists and works
-- [ ] Similarity floor implemented
-- [ ] Deterministic overlap scoring implemented
-- [ ] Weighted score implemented
-- [ ] UI: ranked jobs list shown for a resume
-- [ ] Missing skills displayed
+- [x] RPC: `match_jobs_for_resume` exists and works
+- [x] Deterministic overlap scoring implemented
+- [x] Weighted score implemented (required*3, preferred*1, nice_to_have*0.5, missing_required*-4)
+- [x] UI: ranked jobs list shown for a resume
+- [x] Missing skills displayed
 - [ ] Results look plausible on real data
 
 ## Slice 4 — Matching (HR → Candidates)
