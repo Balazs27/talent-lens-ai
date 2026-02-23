@@ -153,6 +153,28 @@
   CREATE POLICY skills_select_authenticated ON skills
       FOR SELECT USING (auth.uid() IS NOT NULL);
 
+  -- ============================================================
+  -- 7. GAP_ANALYSIS_CACHE
+  -- ============================================================
+  ALTER TABLE gap_analysis_cache ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY gap_cache_employee_select
+ON gap_analysis_cache
+FOR SELECT
+USING (
+    EXISTS (
+        SELECT 1
+        FROM resumes
+        WHERE resumes.id = gap_analysis_cache.resume_id
+        AND resumes.user_id = auth.uid()
+    )
+);
+
+CREATE POLICY gap_cache_hr_select
+ON gap_analysis_cache
+FOR SELECT
+USING (public.is_hr());
+
 
 --Check if they're all gone:
 SELECT tablename, policyname

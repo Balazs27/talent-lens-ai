@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 import {
   extractSkillsFromResume,
   SchemaValidationError,
@@ -129,7 +130,14 @@ export async function POST(request: Request) {
     }
   }
 
-  // 8. Update resume: parsed = validated JSON, status = ready
+  // 8. Invalidate gap analysis cache for this resume (admin client — no DELETE policy)
+  const admin = createAdminClient()
+  await admin
+    .from("gap_analysis_cache")
+    .delete()
+    .eq("resume_id", resumeId)
+
+  // 9. Update resume: parsed = validated JSON, status = ready
   const { error: updateError } = await supabase
     .from("resumes")
     .update({
@@ -145,7 +153,7 @@ export async function POST(request: Request) {
     )
   }
 
-  // 9. Return result
+  // 10. Return result
   return NextResponse.json({
     resumeId,
     status: "ready",

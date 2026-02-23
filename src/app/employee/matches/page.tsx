@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { JobMatchCard } from "@/components/job-match-card"
+import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
 import Link from "next/link"
 
 interface JobMatch {
@@ -89,16 +90,22 @@ export default async function MatchesPage() {
       {jobMatches.length > 0 && (
         <div className="space-y-3">
           {jobMatches.map((match) => (
-            <JobMatchCard
-              key={match.job_id}
-              title={match.title}
-              company={match.company}
-              score={match.score}
-              matched_required={match.matched_required}
-              matched_preferred={match.matched_preferred}
-              matched_nice_to_have={match.matched_nice_to_have}
-              missing_required={match.missing_required}
-            />
+            <div key={match.job_id}>
+              <JobMatchCard
+                title={match.title}
+                company={match.company}
+                score={match.score}
+                matched_required={match.matched_required}
+                matched_preferred={match.matched_preferred}
+                matched_nice_to_have={match.matched_nice_to_have}
+                missing_required={match.missing_required}
+              />
+              <GapAnalysisPanel
+                jobId={match.job_id}
+                resumeId={resume.id}
+                mode="employee"
+              />
+            </div>
           ))}
         </div>
       )}

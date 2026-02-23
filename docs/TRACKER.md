@@ -49,11 +49,11 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [ ] Results look plausible on real data
 
 ## Slice 5 — Gap Analysis
-- [ ] UI: “Analyze gap” button exists
-- [ ] API: POST `/api/analyze/gap` implemented
-- [ ] Deterministic gap list works
-- [ ] (Optional) LLM recommendations integrated
-- [ ] Cached or computed efficiently
+- [x] UI: “Analyze gap” button exists
+- [x] API: POST `/api/analyze/gap` implemented
+- [x] Deterministic gap list works
+- [x] (Optional) LLM recommendations integrated
+- [x] Cached or computed efficiently
 
 ## Slice 6 — Polish & Demo Readiness
 - [ ] Loading states everywhere needed

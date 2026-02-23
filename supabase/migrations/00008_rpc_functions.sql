@@ -128,3 +128,113 @@ $$;
 
 --User Acces:
 GRANT EXECUTE ON FUNCTION match_candidates_for_job(UUID) TO authenticated;
+
+
+--SLICE 5 Gap Analysis:
+CREATE OR REPLACE FUNCTION public.get_gap_analysis(
+    p_job_id uuid,
+    p_resume_id uuid
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_result jsonb;
+BEGIN
+
+    WITH job_data AS (
+        SELECT 
+            js.skill_id,
+            s.canonical_name AS skill_name,
+            js.importance,
+            COALESCE(js.min_years, 0) AS min_years,
+            COALESCE(rs.years_experience, 0) AS candidate_years,
+            GREATEST(COALESCE(js.min_years,0) - COALESCE(rs.years_experience,0), 0) AS years_missing,
+            CASE js.importance
+                WHEN 'required' THEN 3
+                WHEN 'preferred' THEN 2
+                WHEN 'nice_to_have' THEN 1
+                ELSE 1
+            END AS importance_weight
+        FROM job_skills js
+        JOIN skills s ON s.id = js.skill_id
+        LEFT JOIN resume_skills rs
+            ON rs.skill_id = js.skill_id
+           AND rs.resume_id = p_resume_id
+        WHERE js.job_id = p_job_id
+    ),
+
+    computed AS (
+        SELECT *,
+               (importance_weight * years_missing) AS impact_score
+        FROM job_data
+    ),
+
+    matched_required AS (
+        SELECT jsonb_agg(to_jsonb(c)) AS data
+        FROM computed c
+        WHERE importance = 'required'
+          AND years_missing = 0
+    ),
+
+    matched_preferred AS (
+        SELECT jsonb_agg(to_jsonb(c)) AS data
+        FROM computed c
+        WHERE importance = 'preferred'
+          AND years_missing = 0
+    ),
+
+    missing_required AS (
+        SELECT jsonb_agg(to_jsonb(c)) AS data
+        FROM computed c
+        WHERE importance = 'required'
+          AND years_missing > 0
+    ),
+
+    missing_preferred AS (
+        SELECT jsonb_agg(to_jsonb(c)) AS data
+        FROM computed c
+        WHERE importance = 'preferred'
+          AND years_missing > 0
+    ),
+
+    impact_ranked_missing AS (
+        SELECT jsonb_agg(to_jsonb(c) ORDER BY impact_score DESC) AS data
+        FROM computed c
+        WHERE years_missing > 0
+    ),
+
+    score_calc AS (
+        SELECT
+            COUNT(*) FILTER (WHERE importance = 'required' AND years_missing = 0) AS matched_required_count,
+            COUNT(*) FILTER (WHERE importance = 'required') AS total_required_count
+        FROM computed
+    )
+
+    SELECT jsonb_build_object(
+        'score',
+            CASE 
+                WHEN total_required_count = 0 THEN 100
+                ELSE ROUND((matched_required_count::numeric / total_required_count) * 100, 2)
+            END,
+        'matched_required', COALESCE(mr.data, '[]'::jsonb),
+        'matched_preferred', COALESCE(mp.data, '[]'::jsonb),
+        'missing_required', COALESCE(missr.data, '[]'::jsonb),
+        'missing_preferred', COALESCE(missp.data, '[]'::jsonb),
+        'impact_ranked_missing', COALESCE(irm.data, '[]'::jsonb)
+    )
+    INTO v_result
+    FROM score_calc sc
+    LEFT JOIN matched_required mr ON TRUE
+    LEFT JOIN matched_preferred mp ON TRUE
+    LEFT JOIN missing_required missr ON TRUE
+    LEFT JOIN missing_preferred missp ON TRUE
+    LEFT JOIN impact_ranked_missing irm ON TRUE;
+
+    RETURN v_result;
+
+END;
+$$;
+
+--User Access:
+GRANT EXECUTE ON FUNCTION public.get_gap_analysis(uuid, uuid) TO authenticated;
