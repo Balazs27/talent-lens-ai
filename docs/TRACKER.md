@@ -13,14 +13,14 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Manual test documented (steps + expected behavior)
 
 ## Slice 1 — Resume Ingestion (Employee)
-- [ ] UI: resume paste/upload page exists
-- [ ] API: POST `/api/ingest/resume` implemented
-- [ ] LLM extraction prompt + schema implemented
-- [ ] Skill normalization implemented (taxonomy lookup + alias mapping)
-- [ ] DB: `resumes` row written + status updates
-- [ ] DB: `resume_skills` written
+- [x] UI: resume paste/upload page exists
+- [x] API: POST `/api/ingest/resume` implemented
+- [x] LLM extraction prompt + schema implemented
+- [x] Skill normalization implemented (taxonomy lookup + alias mapping)
+- [x] DB: `resumes` row written + status updates
+- [x] DB: `resume_skills` written
 - [ ] (Optional) `embeddings` written
-- [ ] Errors handled properly (400/401/500)
+- [x] Errors handled properly (400/401/500)
 - [ ] Tested on 3 real resumes
 
 ## Slice 2 — Job Ingestion (HR)
