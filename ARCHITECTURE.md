@@ -251,6 +251,8 @@ CREATE TABLE jobs (
     title TEXT NOT NULL,
     company TEXT,
     location TEXT,
+    seniority TEXT
+        CHECK (seniority IN ('junior', 'mid', 'senior', 'staff', 'lead') OR seniority IS NULL),
     raw_text TEXT NOT NULL,                     -- Original JD text
     parsed JSONB NOT NULL,                      -- Structured extraction result
     status TEXT NOT NULL DEFAULT 'pending'

@@ -21,16 +21,16 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] DB: `resume_skills` written
 - [ ] (Optional) `embeddings` written
 - [x] Errors handled properly (400/401/500)
-- [ ] Tested on 3 real resumes
+- [x] Tested on 3 real resumes
 
 ## Slice 2 — Job Ingestion (HR)
-- [ ] UI: JD editor page exists
-- [ ] API: POST `/api/ingest/job` implemented
-- [ ] LLM extraction prompt + schema implemented
-- [ ] DB: `jobs` row written + status updates
-- [ ] DB: `job_skills` written
+- [x] UI: JD editor page exists
+- [x] API: POST `/api/ingest/job` implemented
+- [x] LLM extraction prompt + schema implemented
+- [x] DB: `jobs` row written + status updates
+- [x] DB: `job_skills` written
 - [ ] (Optional) `embeddings` written
-- [ ] Tested on 3 real job descriptions
+- [x] Tested on 3 real job descriptions
 
 ## Slice 3 — Matching (Employee → Jobs)
 - [ ] RPC: `match_jobs_for_resume` exists and works
