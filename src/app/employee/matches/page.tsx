@@ -36,14 +36,14 @@ export default async function MatchesPage() {
   if (!resume) {
     return (
       <div className="max-w-3xl space-y-4">
-        <h1 className="text-2xl font-semibold">Job Matches</h1>
+        <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Matches</h1>
         <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No resume found. Upload a resume first to see matching jobs.
           </p>
           <Link
             href="/employee/resume"
-            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors"
           >
             Upload Resume
           </Link>
@@ -81,8 +81,8 @@ export default async function MatchesPage() {
   return (
     <div className="max-w-3xl space-y-4">
       <div>
-        <h1 className="text-2xl font-semibold">Job Matches</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Matches</h1>
+        <p className="mt-1 text-sm text-gray-500 pl-3">
           Jobs ranked by skill overlap with your resume. Higher scores indicate
           better fit. Click a job card to view the full description.
         </p>

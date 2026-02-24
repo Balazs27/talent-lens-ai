@@ -25,9 +25,9 @@ export function CandidateMatchCard({
   resumeId,
 }: CandidateMatchCardProps) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-4 flex items-start gap-4">
+    <div className="rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow p-4 flex items-start gap-4">
       {/* Score badge */}
-      <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-blue-50 border border-blue-200 flex flex-col items-center justify-center">
+      <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-blue-50 border border-blue-300 flex flex-col items-center justify-center">
         <span className="text-lg font-bold text-blue-700">
           {score.toFixed(1)}
         </span>

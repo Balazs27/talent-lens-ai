@@ -34,14 +34,14 @@ export default async function SkillsPage() {
   if (!resume) {
     return (
       <div className="max-w-3xl space-y-4">
-        <h1 className="text-2xl font-semibold">My Skills</h1>
+        <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">My Skills</h1>
         <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No resume found. Upload a resume first to see your skills.
           </p>
           <Link
             href="/employee/resume"
-            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors"
           >
             Upload Resume
           </Link>
@@ -86,8 +86,8 @@ export default async function SkillsPage() {
   return (
     <div className="max-w-3xl space-y-4">
       <div>
-        <h1 className="text-2xl font-semibold">My Skills</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">My Skills</h1>
+        <p className="mt-1 text-sm text-gray-500 pl-3">
           Skills extracted from your resume. Using latest resume &mdash;{" "}
           <span className="text-gray-400">{resumeDate}</span>
         </p>

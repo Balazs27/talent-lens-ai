@@ -56,8 +56,8 @@ export default async function HRDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Welcome, {name}</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Welcome, {name}</h1>
+        <p className="mt-1 text-sm text-gray-500 pl-3">
           Your HR dashboard. Post a job description to start finding candidates.
         </p>
       </div>
@@ -81,9 +81,9 @@ export default async function HRDashboard() {
               : "Resumes with extracted skills in the pool"}
           </p>
         </div>
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
-          <h3 className="text-sm font-medium text-gray-500">Avg. Match Score</h3>
-          <p className="mt-2 text-2xl font-semibold">
+        <div className="rounded-xl border border-blue-200 bg-blue-50/50 shadow-sm p-5">
+          <h3 className="text-sm font-medium text-blue-600">Avg. Match Score</h3>
+          <p className="mt-2 text-2xl font-bold text-blue-700">
             {avgScore !== null ? avgScore.toFixed(1) : <span className="text-gray-400">&mdash;</span>}
           </p>
           <p className="mt-1 text-xs text-gray-400">

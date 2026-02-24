@@ -19,33 +19,33 @@ export default async function HRLayout({
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-56 bg-white border-r border-gray-200 p-4 space-y-1">
+      <aside className="w-56 bg-blue-50/40 border-r border-blue-100 p-4 space-y-1">
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-blue-600">TalentLens</h2>
           <p className="text-xs text-gray-400">HR / Recruiter</p>
         </div>
-        <nav className="space-y-1">
+        <nav className="space-y-0.5">
           <Link
             href="/hr/dashboard"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
           >
             Dashboard
           </Link>
           <Link
             href="/hr/jobs"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
           >
             Job Descriptions
           </Link>
           <Link
             href="/hr/jobs/new"
-            className="block rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors pl-6"
+            className="block rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-blue-100/60 hover:text-blue-600 transition-colors pl-6"
           >
             + Create New
           </Link>
           <Link
             href="/hr/jobs"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
           >
             Candidates
           </Link>
@@ -53,7 +53,7 @@ export default async function HRLayout({
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col bg-gray-50">
         {/* Top bar */}
         <header className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-6">
           <span className="text-sm text-gray-500">
@@ -62,7 +62,7 @@ export default async function HRLayout({
           <form action="/api/auth/signout" method="post">
             <button
               type="submit"
-              className="text-sm text-gray-500 hover:text-gray-700"
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               Sign out
             </button>
