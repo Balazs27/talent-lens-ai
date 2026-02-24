@@ -2,6 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  height: 100%;
+/* ================================================================
+   TalentLens — Design-system spine
+   "Royal Blue Intelligence" — premium, branded, NOT default shadcn
+   ================================================================ */
+
+@layer base {
+  :root {
+    /* ── Brand palette (RGB channels for Tailwind arbitrary) ── */
+    --brand:             37 99 235;    /* #2563EB  royal blue       */
+    --brand-2:           29 78 216;    /* #1D4ED8  deep blue        */
+    --ring:              59 130 246;   /* #3B82F6  focus ring       */
+    --bg:                248 250 252;  /* #F8FAFC  app canvas       */
+    --panel:             255 255 255;  /* #FFFFFF  card / surface   */
+    --stroke:            226 232 240;  /* #E2E8F0  borders          */
+
+    /* Text */
+    --text:              15 23 42;     /* #0F172A  primary text     */
+    --text-muted:        100 116 139;  /* #64748B  secondary text   */
+
+    /* ── shadcn-compatible tokens ── */
+    --background:        var(--bg);
+    --foreground:        var(--text);
+    --primary:           var(--brand);
+    --primary-foreground: 255 255 255;
+    --accent:            239 246 255;  /* #EFF6FF  blue-50          */
+    --accent-foreground: 29 78 216;
+    --muted:             241 245 249;  /* #F1F5F9  slate-100        */
+    --muted-foreground:  var(--text-muted);
+    --border:            var(--stroke);
+    --input:             var(--stroke);
+    --radius:            0.75rem;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
+
+    /* Mesh gradient — two soft blue radials for depth */
+    background-image:
+      radial-gradient(
+        ellipse 80% 50% at 15% -5%,
+        rgba(37, 99, 235, 0.07) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 85% 105%,
+        rgba(37, 99, 235, 0.04) 0%,
+        transparent 50%
+      );
+    background-attachment: fixed;
+  }
+
+  /* Brand-tinted focus ring on all interactive elements */
+  *:focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+/* ── Faint grid overlay (vignetted at edges) ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
 }

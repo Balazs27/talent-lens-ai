@@ -188,7 +188,52 @@ Prefer built-in platform capabilities and existing repo dependencies.
 
 ---
 
-## 8) Definition of Done
+## 8) Frontend Aesthetics (Hard Requirements for TalentLens)
+
+Goal: The UI must feel premium, modern, and branded — NOT like default shadcn.
+
+### Brand vibe
+- Clean + confident + slightly futuristic (not playful, not corporate-boring).
+- “Royal blue energy” as the signature. Blue should be present on every key screen.
+
+### Color rules
+- Primary brand color: strong royal blue used intentionally in:
+  - Primary CTA buttons
+  - Active nav state + sidebar accents
+  - Section headers / key metrics emphasis
+  - Subtle background glows / gradients (NOT purple-on-white cliché)
+- Use neutrals for structure, blue for attention + identity.
+- Prefer layered backgrounds (mesh gradients, subtle noise, glow) over flat white.
+
+### Typography rules
+- Do NOT default to Inter/Roboto/system fonts.
+- Choose a distinctive display font (headings) + refined body font.
+- Keep it readable and SaaS-appropriate (no gimmick fonts).
+
+### Layout + components
+- Avoid cookie-cutter “stack of identical cards”.
+- Add hierarchy: featured card, varied density, deliberate whitespace rhythm.
+- Use modern depth: soft shadows, borders, glassy panels, gradient strokes.
+- Make empty states beautiful (illustrated/graphical placeholders).
+
+### Motion
+- One strong page-load entrance (staggered reveal).
+- Crisp hover transitions: lift, glow, gradient shift, subtle scale.
+- Use motion sparingly but intentionally — micro-interactions should feel “alive”.
+
+### Implementation constraints
+- Stack: Next.js App Router + TS + Tailwind + shadcn/ui.
+- Use CSS variables + Tailwind tokens (themeable).
+- Keep accessibility (contrast, focus states) solid.
+- Keep code production-grade (no hacky inline CSS everywhere).
+
+### “Never do this”
+- Generic shadcn look with no brand identity.
+- Purple gradients on white backgrounds.
+- Inter everywhere.
+- Same radius/shadow on every card with no hierarchy.
+
+## 9) Definition of Done
 
 A task is done only if:
 - Builds (`npm run build` passes) or at minimum compiles
@@ -201,7 +246,7 @@ A task is done only if:
 
 ---
 
-## 9) Local Dev Expectations
+## 10) Local Dev Expectations
 
 Agents should keep these working:
 - `npm install`
@@ -213,7 +258,7 @@ If commands change, update README.
 
 ---
 
-## 10) If you’re unsure (Fallback behavior)
+## 11) If you’re unsure (Fallback behavior)
 
 When uncertain:
 1) Prefer the simplest approach consistent with architecture.

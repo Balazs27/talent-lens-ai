@@ -1,6 +1,13 @@
 import "./globals.css"
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
+import { Plus_Jakarta_Sans } from "next/font/google"
+
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "TalentLens AI",
@@ -13,8 +20,8 @@ export default function RootLayout({
   children: ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+    <html lang="en" className={fontSans.variable}>
+      <body className={`${fontSans.className} min-h-screen antialiased`}>
         {children}
       </body>
     </html>
