@@ -233,7 +233,61 @@ Goal: The UI must feel premium, modern, and branded — NOT like default shadcn.
 - Inter everywhere.
 - Same radius/shadow on every card with no hierarchy.
 
-## 9) Definition of Done
+---
+
+## 9) Landing Page Design Requirements (Non-Negotiable)
+
+The landing page represents the product vision and must feel premium and investor-ready.
+
+### Core Principles
+- Large, bold typography with strong hierarchy.
+- Clean but powerful visual contrast.
+- Generous whitespace and intentional spacing rhythm.
+- Avoid safe, generic SaaS layouts.
+- The hero section must feel memorable and confident.
+
+### CTA Structure
+- One primary CTA in hero: “Get Started” (links to signup).
+- One secondary CTA in navigation: “Sign In”.
+- Do NOT add multiple competing buttons in hero.
+- Clean > Busy.
+
+### Required Sections (in this order)
+1. Hero
+2. Problem / Why
+3. How It Works (3 steps)
+4. Product Preview
+5. About
+6. Contact
+
+### Visual Reference Style
+
+When designing landing pages, take inspiration from:
+- Linear
+- Stripe
+- Vercel
+- Perplexity
+- Modern AI-native startups
+
+Design should feel:
+- Product-led
+- Minimal but bold
+- High contrast
+- Clean gradients
+- Confident typography
+- Slightly futuristic, not corporate
+
+Avoid:
+- Startup cliché gradients
+- Marketing fluff
+- Stock-illustration-heavy layouts
+- Generic Tailwind templates
+
+Do not change this structure unless explicitly instructed.
+
+---
+
+## 10) Definition of Done
 
 A task is done only if:
 - Builds (`npm run build` passes) or at minimum compiles
@@ -246,7 +300,7 @@ A task is done only if:
 
 ---
 
-## 10) Local Dev Expectations
+## 11) Local Dev Expectations
 
 Agents should keep these working:
 - `npm install`
@@ -258,7 +312,7 @@ If commands change, update README.
 
 ---
 
-## 11) If you’re unsure (Fallback behavior)
+## 12) If you’re unsure (Fallback behavior)
 
 When uncertain:
 1) Prefer the simplest approach consistent with architecture.
