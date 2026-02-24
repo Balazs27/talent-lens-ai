@@ -56,12 +56,12 @@ export function GapAnalysisPanel({
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? "Analyzing..." : "Analyze Gap"}
         </button>
         {loading && (
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-slate-400">
             Computing gap analysis...
           </span>
         )}
@@ -71,9 +71,9 @@ export function GapAnalysisPanel({
   }
 
   return (
-    <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-4 space-y-4">
+    <div className="mt-3 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-4 space-y-4">
       {result.cached && (
-        <span className="inline-block text-[10px] text-gray-400 uppercase">
+        <span className="inline-block text-[10px] text-slate-400 uppercase">
           Cached result
         </span>
       )}
@@ -92,7 +92,7 @@ export function GapAnalysisPanel({
       )}
 
       {!result.llm && (
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-slate-400">
           LLM recommendations unavailable.
         </p>
       )}
@@ -112,7 +112,7 @@ function DeterministicSection({
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
-        <h4 className="text-sm font-semibold text-gray-800">
+        <h4 className="text-sm font-semibold text-slate-800">
           Skill Gap Analysis
         </h4>
         <span
@@ -188,7 +188,7 @@ function DeterministicSection({
 
       {data.missing_preferred.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-500 mb-1">
+          <p className="text-xs font-medium text-slate-500 mb-1">
             Missing Preferred ({data.missing_preferred.length})
           </p>
           <div className="flex flex-wrap gap-1">
@@ -206,14 +206,14 @@ function DeterministicSection({
       {/* Impact-ranked missing (shown in HR mode or when there are items) */}
       {mode === "hr" && data.impact_ranked_missing.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-700 mb-1">
+          <p className="text-xs font-medium text-slate-700 mb-1">
             Impact-Ranked Missing Skills
           </p>
-          <ol className="text-xs text-gray-600 space-y-0.5 list-decimal list-inside">
+          <ol className="text-xs text-slate-600 space-y-0.5 list-decimal list-inside">
             {data.impact_ranked_missing.map((s, i) => (
               <li key={i}>
                 <span className="font-medium">{String(s.skill_name)}</span>
-                <span className="text-gray-400 ml-1">
+                <span className="text-slate-400 ml-1">
                   ({String(s.importance)}, impact: {String(s.impact_score)})
                 </span>
               </li>
@@ -229,12 +229,12 @@ function DeterministicSection({
 
 function EmployeeLLMSection({ data }: { data: EmployeeGapLLM }) {
   return (
-    <div className="border-t border-gray-200 pt-3 space-y-3">
+    <div className="border-t border-slate-200 pt-3 space-y-3">
       <div className="flex items-center justify-between">
-        <h4 className="text-sm font-semibold text-gray-800">
+        <h4 className="text-sm font-semibold text-slate-800">
           Learning Recommendations
         </h4>
-        <div className="flex items-center gap-2 text-xs text-gray-500">
+        <div className="flex items-center gap-2 text-xs text-slate-500">
           <span>
             ~{data.estimated_total_time_months} month
             {data.estimated_total_time_months !== 1 ? "s" : ""} total
@@ -246,7 +246,7 @@ function EmployeeLLMSection({ data }: { data: EmployeeGapLLM }) {
       {/* Priority order */}
       {data.priority_order.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-600 mb-1">
+          <p className="text-xs font-medium text-slate-600 mb-1">
             Priority Order
           </p>
           <div className="flex flex-wrap gap-1">
@@ -285,22 +285,22 @@ function LearningPlanCard({
   index: number
 }) {
   return (
-    <div className="rounded-lg bg-white border border-gray-200 shadow-sm p-3">
+    <div className="rounded-lg bg-white border border-slate-200 shadow-sm p-3">
       <div className="flex items-center justify-between">
-        <h5 className="text-sm font-medium text-gray-900">
+        <h5 className="text-sm font-medium text-slate-900">
           <span className="text-blue-400 mr-1.5">{index + 1}.</span>
           {item.skill}
         </h5>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-slate-400">
           ~{item.estimated_time_weeks}w
         </span>
       </div>
-      <p className="mt-1 text-xs text-gray-500">{item.why_it_matters}</p>
+      <p className="mt-1 text-xs text-slate-500">{item.why_it_matters}</p>
       {item.recommended_actions.length > 0 && (
-        <ul className="mt-1.5 text-xs text-gray-600 space-y-0.5">
+        <ul className="mt-1.5 text-xs text-slate-600 space-y-0.5">
           {item.recommended_actions.map((action, j) => (
             <li key={j} className="flex items-start gap-1.5">
-              <span className="text-gray-300 mt-0.5">-</span>
+              <span className="text-slate-300 mt-0.5">-</span>
               {action}
             </li>
           ))}
@@ -314,14 +314,14 @@ function LearningPlanCard({
 
 function HrLLMSection({ data }: { data: HrGapLLM }) {
   return (
-    <div className="border-t border-gray-200 pt-3 space-y-3">
-      <h4 className="text-sm font-semibold text-gray-800">
+    <div className="border-t border-slate-200 pt-3 space-y-3">
+      <h4 className="text-sm font-semibold text-slate-800">
         Executive Summary
       </h4>
 
       <div className="flex items-center gap-4 text-sm">
         <div>
-          <span className="text-gray-500">Ramp-up:</span>{" "}
+          <span className="text-slate-500">Ramp-up:</span>{" "}
           <span className="font-medium">
             {data.estimated_ramp_up_months} month
             {data.estimated_ramp_up_months !== 1 ? "s" : ""}
@@ -332,13 +332,13 @@ function HrLLMSection({ data }: { data: HrGapLLM }) {
 
       {data.training_recommendations.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-600 mb-1">
+          <p className="text-xs font-medium text-slate-600 mb-1">
             Training Recommendations
           </p>
-          <ul className="text-xs text-gray-600 space-y-0.5">
+          <ul className="text-xs text-slate-600 space-y-0.5">
             {data.training_recommendations.map((rec, i) => (
               <li key={i} className="flex items-start gap-1.5">
-                <span className="text-gray-300 mt-0.5">-</span>
+                <span className="text-slate-300 mt-0.5">-</span>
                 {rec}
               </li>
             ))}
@@ -364,7 +364,7 @@ function SkillBadge({
     green: "bg-green-50 border-green-200 text-green-800",
     amber: "bg-amber-50 border-amber-200 text-amber-800",
     red: "bg-red-50 border-red-200 text-red-800",
-    gray: "bg-gray-50 border-gray-200 text-gray-600",
+    gray: "bg-slate-50 border-slate-200 text-slate-600",
   }
 
   return (

@@ -204,7 +204,7 @@ export default async function EmployeeDashboard() {
           {/* Featured: Job Matches — gradient stroke border */}
           <div className="lg:col-span-3">
             <div className="relative h-full rounded-xl p-px bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600/40 shadow-[0_0_24px_rgba(37,99,235,0.12)]">
-              <div className="h-full rounded-[11px] bg-white p-6">
+              <div className="h-full rounded-[11px] bg-white/90 backdrop-blur-xl p-6">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-sm font-semibold text-blue-600">
@@ -231,7 +231,7 @@ export default async function EmployeeDashboard() {
 
           {/* Secondary KPIs — stacked */}
           <div className="lg:col-span-2 grid gap-4">
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-10px_rgba(37,99,235,0.1)] hover:-translate-y-0.5">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-medium text-slate-500">
@@ -250,7 +250,7 @@ export default async function EmployeeDashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-10px_rgba(37,99,235,0.1)] hover:-translate-y-0.5">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-medium text-slate-500">
@@ -281,7 +281,7 @@ export default async function EmployeeDashboard() {
         className="animate-[fadeUp_0.5s_ease-out_both]"
         style={{ animationDelay: "200ms" }}
       >
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-slate-900">
               Next Steps

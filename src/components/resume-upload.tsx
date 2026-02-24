@@ -69,7 +69,7 @@ export function ResumeUpload() {
         <div>
           <label
             htmlFor="resume-text"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-slate-700 mb-1"
           >
             Paste your resume text
           </label>
@@ -79,10 +79,10 @@ export function ResumeUpload() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste your resume or LinkedIn profile text here..."
-            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="block w-full rounded-xl border border-slate-200/80 bg-white/50 px-4 py-3 text-sm focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
             disabled={loading}
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-slate-400">
             Minimum 50 characters. Plain text only.
           </p>
         </div>
@@ -96,15 +96,15 @@ export function ResumeUpload() {
         <button
           type="submit"
           disabled={loading || text.trim().length < 50}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Extracting skills..." : "Extract Skills"}
         </button>
       </form>
 
       {loading && (
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">
             Analyzing resume and extracting skills... This may take 5-15 seconds.
           </p>
         </div>
@@ -113,21 +113,21 @@ export function ResumeUpload() {
       {result && (
         <div className="space-y-4">
           {/* Summary */}
-          <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
+          <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5">
             <h3 className="text-lg font-medium mb-3">Extraction Result</h3>
             {result.parsed.full_name && (
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-600">
                 <span className="font-medium">Name:</span>{" "}
                 {result.parsed.full_name}
               </p>
             )}
             {result.parsed.email && (
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-600">
                 <span className="font-medium">Email:</span>{" "}
                 {result.parsed.email}
               </p>
             )}
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-slate-600 mt-1">
               <span className="font-medium">Skills extracted:</span>{" "}
               {result.parsed.skills.length} total,{" "}
               {result.matchedSkills.length} matched to taxonomy
@@ -136,7 +136,7 @@ export function ResumeUpload() {
 
           {/* Matched skills */}
           {result.matchedSkills.length > 0 && (
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5">
               <h3 className="text-lg font-medium mb-3">
                 Matched Skills ({result.matchedSkills.length})
               </h3>
@@ -175,14 +175,14 @@ export function ResumeUpload() {
           )}
 
           {/* View Matches CTA */}
-          <div className="rounded-xl border border-blue-200 bg-blue-50 shadow-sm p-5 text-center">
+          <div className="rounded-2xl border border-blue-200/50 bg-blue-50/80 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5 text-center">
             <p className="text-sm text-blue-800">
               Your skills have been extracted and matched. See which jobs fit
               your profile.
             </p>
             <Link
               href="/employee/matches"
-              className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+              className="mt-3 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
             >
               View Matches
             </Link>
@@ -190,8 +190,8 @@ export function ResumeUpload() {
 
           {/* Unmatched skills (extracted but not in taxonomy) */}
           {result.parsed.skills.length > result.matchedSkills.length && (
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
-              <h3 className="text-sm font-medium text-gray-500 mb-2">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5">
+              <h3 className="text-sm font-medium text-slate-500 mb-2">
                 Not in taxonomy (
                 {result.parsed.skills.length - result.matchedSkills.length}{" "}
                 skills)
@@ -209,7 +209,7 @@ export function ResumeUpload() {
                   .map((s, i) => (
                     <span
                       key={i}
-                      className="inline-flex rounded-full bg-gray-100 border border-gray-200 px-3 py-1 text-xs text-gray-500"
+                      className="inline-flex rounded-full bg-slate-100 border border-slate-200 px-3 py-1 text-xs text-slate-500"
                     >
                       {s.name}
                     </span>

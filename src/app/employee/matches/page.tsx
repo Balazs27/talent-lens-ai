@@ -37,13 +37,13 @@ export default async function MatchesPage() {
     return (
       <div className="max-w-3xl space-y-4">
         <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Matches</h1>
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">
             No resume found. Upload a resume first to see matching jobs.
           </p>
           <Link
             href="/employee/resume"
-            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors"
+            className="mt-3 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
           >
             Upload Resume
           </Link>
@@ -82,7 +82,7 @@ export default async function MatchesPage() {
     <div className="max-w-3xl space-y-4">
       <div>
         <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Matches</h1>
-        <p className="mt-1 text-sm text-gray-500 pl-3">
+        <p className="mt-1 text-sm text-slate-500 pl-3">
           Jobs ranked by skill overlap with your resume. Higher scores indicate
           better fit. Click a job card to view the full description.
         </p>
@@ -97,8 +97,8 @@ export default async function MatchesPage() {
       )}
 
       {!rpcError && jobMatches.length === 0 && (
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">
             No matching jobs found. Check back after more job descriptions have
             been posted.
           </p>

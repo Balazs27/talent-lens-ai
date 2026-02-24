@@ -46,18 +46,18 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm space-y-6 p-8 bg-white rounded-xl shadow-sm border border-gray-200">
+    <main className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="w-full max-w-sm space-y-6 p-8 bg-white rounded-xl shadow-sm border border-slate-200">
         <div>
           <h1 className="text-2xl font-semibold text-center">Create account</h1>
-          <p className="mt-1 text-sm text-gray-500 text-center">
+          <p className="mt-1 text-sm text-slate-500 text-center">
             Join TalentLens AI
           </p>
         </div>
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="fullName" className="block text-sm font-medium text-slate-700">
               Full name
             </label>
             <input
@@ -66,13 +66,13 @@ export default function SignupPage() {
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="Jane Doe"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-slate-700">
               Email
             </label>
             <input
@@ -81,13 +81,13 @@ export default function SignupPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-slate-700">
               Password
             </label>
             <input
@@ -97,13 +97,13 @@ export default function SignupPage() {
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               I am...
             </label>
             <div className="flex gap-3">
@@ -113,7 +113,7 @@ export default function SignupPage() {
                 className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   role === "employee"
                     ? "border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                    : "border-slate-300 text-slate-600 hover:bg-slate-50"
                 }`}
               >
                 Employee
@@ -124,7 +124,7 @@ export default function SignupPage() {
                 className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   role === "hr"
                     ? "border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                    : "border-slate-300 text-slate-600 hover:bg-slate-50"
                 }`}
               >
                 HR / Recruiter
@@ -145,7 +145,7 @@ export default function SignupPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-slate-500">
           Already have an account?{" "}
           <a href="/login" className="text-blue-600 hover:underline">
             Sign in

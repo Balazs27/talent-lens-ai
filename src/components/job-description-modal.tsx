@@ -52,22 +52,22 @@ export function JobDescriptionModal({
 
           {/* Modal */}
           <div
-            className="relative w-full max-w-2xl max-h-[80vh] rounded-xl border border-gray-200 bg-white shadow-xl flex flex-col"
+            className="relative w-full max-w-2xl max-h-[80vh] rounded-xl border border-slate-200 bg-white shadow-xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-start justify-between border-b border-gray-200 px-5 py-4">
+            <div className="flex items-start justify-between border-b border-slate-200 px-5 py-4">
               <div className="min-w-0 pr-4">
-                <h2 className="text-lg font-semibold text-gray-900 truncate">
+                <h2 className="text-lg font-semibold text-slate-900 truncate">
                   {title}
                 </h2>
                 {company && (
-                  <p className="mt-0.5 text-sm text-gray-500">{company}</p>
+                  <p className="mt-0.5 text-sm text-slate-500">{company}</p>
                 )}
               </div>
               <button
                 onClick={close}
-                className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                className="flex-shrink-0 rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
                 aria-label="Close"
               >
                 <svg
@@ -89,11 +89,11 @@ export function JobDescriptionModal({
             {/* Body */}
             <div className="overflow-y-auto p-5">
               {rawText ? (
-                <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
+                <pre className="whitespace-pre-wrap text-sm text-slate-700 font-sans leading-relaxed">
                   {rawText}
                 </pre>
               ) : (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-slate-400">
                   Job description text not available.
                 </p>
               )}

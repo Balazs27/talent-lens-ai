@@ -34,13 +34,13 @@ export default async function JobsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Descriptions</h1>
-          <p className="mt-1 text-sm text-gray-500 pl-3">
+          <p className="mt-1 text-sm text-slate-500 pl-3">
             Your posted job descriptions and their candidate matches.
           </p>
         </div>
         <Link
           href="/hr/jobs/new"
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors"
+          className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
         >
           + Create New
         </Link>
@@ -53,8 +53,8 @@ export default async function JobsPage() {
       )}
 
       {!error && jobList.length === 0 && (
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">
             No job descriptions yet. Create one to start matching candidates.
           </p>
         </div>
@@ -65,13 +65,13 @@ export default async function JobsPage() {
           {jobList.map((job) => (
             <div
               key={job.id}
-              className="rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow p-4 flex items-center justify-between"
+              className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-md transition-shadow p-4 flex items-center justify-between"
             >
               <div className="min-w-0">
-                <h3 className="text-base font-semibold text-gray-900 truncate">
+                <h3 className="text-base font-semibold text-slate-900 truncate">
                   {job.title}
                 </h3>
-                <div className="mt-1 flex flex-wrap gap-x-3 text-sm text-gray-500">
+                <div className="mt-1 flex flex-wrap gap-x-3 text-sm text-slate-500">
                   {job.company && <span>{job.company}</span>}
                   {job.location && <span>{job.location}</span>}
                   {job.seniority && (
@@ -94,7 +94,7 @@ export default async function JobsPage() {
               {job.status === "ready" && (
                 <Link
                   href={`/hr/jobs/${job.id}/candidates`}
-                  className="flex-shrink-0 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="flex-shrink-0 rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 transition-colors"
                 >
                   View Candidates
                 </Link>
