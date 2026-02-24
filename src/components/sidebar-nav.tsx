@@ -48,9 +48,8 @@ export function SidebarNav({
               className={[
                 "block rounded-xl text-sm font-medium transition-all duration-200 ease-out",
                 item.indent ? "ml-4 px-4 py-2.5" : "px-4 py-2.5",
-                active
-                  ? "bg-blue-50/80 text-blue-700 shadow-sm ring-1 ring-blue-600/10"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/50"
+                active ? "bg-blue-600 text-white shadow-[0_8px_20px_-6px_rgba(37,99,235,0.4)] ring-1 ring-blue-500 font-semibold"
+                  : "text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 font-medium"
               ].join(" ")}
             >
               {item.label}

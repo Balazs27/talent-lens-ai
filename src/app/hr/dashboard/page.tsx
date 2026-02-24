@@ -118,10 +118,10 @@ export default async function HRDashboard() {
           aria-hidden="true"
         />
 
-        <div className="relative rounded-2xl bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 p-8 text-white overflow-hidden shadow-[0_4px_24px_rgba(37,99,235,0.3)]">
+        <div className="relative rounded-[2rem] bg-slate-950 p-8 md:p-10 text-white overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] border border-slate-800/80">
           {/* Internal light orb */}
           <div
-            className="absolute top-0 right-0 w-72 h-72 rounded-full bg-white/[0.06] blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"
+            className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-600/20 blur-[100px] -translate-y-1/3 translate-x-1/3 pointer-events-none"
             aria-hidden="true"
           />
 
@@ -129,7 +129,7 @@ export default async function HRDashboard() {
             <p className="text-xs font-semibold uppercase tracking-widest text-blue-200">
               HR Command Center
             </p>
-            <h1 className="mt-1.5 text-2xl font-bold">
+            <h1 className="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
               Welcome back, {name}
             </h1>
             <p className="mt-2 text-sm text-blue-100/80 max-w-md">
@@ -164,7 +164,7 @@ export default async function HRDashboard() {
           {/* Featured: Avg Match Score — gradient stroke border */}
           <div className="lg:col-span-3">
             <div className="relative h-full rounded-xl p-px bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600/40 shadow-[0_0_24px_rgba(37,99,235,0.12)]">
-              <div className="h-full rounded-[11px] bg-white/90 backdrop-blur-xl p-6">
+              <div className="h-full rounded-[15px] bg-white/90 backdrop-blur-xl p-6 shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-sm font-semibold text-blue-600">
@@ -191,7 +191,7 @@ export default async function HRDashboard() {
 
           {/* Secondary KPIs — stacked */}
           <div className="lg:col-span-2 grid gap-4">
-            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-10px_rgba(37,99,235,0.1)] hover:-translate-y-0.5">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_12px_40px_-12px_rgba(37,99,235,0.15)] hover:-translate-y-0.5">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-medium text-slate-500">
@@ -210,7 +210,7 @@ export default async function HRDashboard() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-10px_rgba(37,99,235,0.1)] hover:-translate-y-0.5">
+            <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl p-5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_12px_40px_-12px_rgba(37,99,235,0.15)] hover:-translate-y-0.5">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-medium text-slate-500">
@@ -239,7 +239,7 @@ export default async function HRDashboard() {
       >
         <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-base font-bold tracking-tight text-slate-900">
               Pipeline Snapshot
             </h2>
             <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wide">
