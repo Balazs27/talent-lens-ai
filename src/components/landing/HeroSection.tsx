@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center text-center overflow-hidden">
+    <section className="relative pt-32 pb-32 md:pt-48 md:pb-56 px-6 flex flex-col items-center text-center overflow-hidden">
       {/* Subtle radial royal-blue glow behind headline */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[500px] md:w-[800px] md:h-[600px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
 
@@ -10,15 +10,18 @@ export function HeroSection() {
         <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
         Introducing Hybrid Matching
       </div>
-      <h1 className="relative z-10 max-w-5xl text-5xl md:text-7xl lg:text-[8rem] font-bold tracking-tighter text-slate-900 leading-[1.05]">
+      
+      <h1 className="relative z-10 max-w-5xl text-6xl md:text-8xl lg:text-[8.5rem] font-extrabold tracking-tighter text-slate-950 leading-[0.95]">
         Intelligence for the <br className="hidden md:block" />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
           modern workforce.
         </span>
       </h1>
-      <p className="relative z-10 mt-8 max-w-2xl text-lg md:text-2xl text-slate-600 leading-relaxed">
+      
+      <p className="relative z-10 mt-8 max-w-xl text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
         Upload resumes. Extract skills. Uncover the perfect internal matches instantly with our hybrid semantic search engine.
       </p>
+      
       <div className="relative z-10 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/signup"
