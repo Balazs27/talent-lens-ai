@@ -1,3 +1,8 @@
+"use client"
+
+import { DemoToastButton } from "@/components/demo-toast-button"
+import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
+
 interface CandidateMatchCardProps {
   full_name: string
   score: number
@@ -5,6 +10,8 @@ interface CandidateMatchCardProps {
   matched_preferred: number
   matched_nice_to_have: number
   missing_required: number
+  jobId?: string
+  resumeId?: string
 }
 
 export function CandidateMatchCard({
@@ -14,6 +21,8 @@ export function CandidateMatchCard({
   matched_preferred,
   matched_nice_to_have,
   missing_required,
+  jobId,
+  resumeId,
 }: CandidateMatchCardProps) {
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-5 flex items-start gap-5">
@@ -55,6 +64,21 @@ export function CandidateMatchCard({
           </p>
         )}
       </div>
+
+      {/* Actions */}
+      {jobId && resumeId && (
+        <div className="flex-shrink-0 flex items-center gap-2">
+          <DemoToastButton
+            label="Invite"
+            toastMessage="Invite sent (demo)"
+          />
+          <GapAnalysisPanel
+            jobId={jobId}
+            resumeId={resumeId}
+            mode="hr"
+          />
+        </div>
+      )}
     </div>
   )
 }

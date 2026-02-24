@@ -1,3 +1,8 @@
+"use client"
+
+import { DemoToastButton } from "@/components/demo-toast-button"
+import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
+
 interface JobMatchCardProps {
   title: string
   company: string | null
@@ -6,6 +11,8 @@ interface JobMatchCardProps {
   matched_preferred: number
   matched_nice_to_have: number
   missing_required: number
+  jobId?: string
+  resumeId?: string
 }
 
 export function JobMatchCard({
@@ -16,6 +23,8 @@ export function JobMatchCard({
   matched_preferred,
   matched_nice_to_have,
   missing_required,
+  jobId,
+  resumeId,
 }: JobMatchCardProps) {
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-5 flex items-start gap-5">
@@ -60,6 +69,25 @@ export function JobMatchCard({
           </p>
         )}
       </div>
+
+      {/* Actions */}
+      {jobId && resumeId && (
+        <div
+          className="flex-shrink-0 flex items-center gap-2"
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+        >
+          <DemoToastButton
+            label="Apply"
+            toastMessage="Application opened (demo)"
+          />
+          <GapAnalysisPanel
+            jobId={jobId}
+            resumeId={resumeId}
+            mode="employee"
+          />
+        </div>
+      )}
     </div>
   )
 }

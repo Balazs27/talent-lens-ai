@@ -66,6 +66,13 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Employee: My Skills page wired to latest resume skills
 - [ ] Global: Better empty states + subtle loading polish
 
+### 6A.2 — Layout Corrections
+- [x] Move Invite / Apply / Analyze Gap buttons to right side of cards (inline with header)
+- [x] Ensure cards expand vertically slightly for better spacing
+- [x] Maintain consistent spacing and alignment
+- [x] HR Dashboard: Avg. Match Score computed from RPCs
+- [x] Employee Dashboard: Real metrics (resumes, matches, skills) from latest resume
+
 ### 6B — UI Consistency (Visual)
 - [ ] Better spacing and alignment across pages
 - [ ] Consistent button styles & card layout

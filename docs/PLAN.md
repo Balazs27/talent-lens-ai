@@ -112,6 +112,11 @@ Each slice ends with something clickable and testable.
 - Employee “View Matches” CTA after resume extraction
 - Wire "My Skills" page
 
+### 6A.2 — Layout Corrections
+- Move Invite / Apply / Analyze Gap buttons to right side of cards (inline with header)
+- Ensure cards expand vertically slightly for better spacing
+- Maintain consistent spacing and alignment
+
 ### 6B — UI Consistency (Visual)
 **Goal:** Consistent spacing, cards, buttons, badges, typography.
 

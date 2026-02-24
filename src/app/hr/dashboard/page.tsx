@@ -1,6 +1,10 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 
+interface CandidateScore {
+  score: number
+}
+
 export default async function HRDashboard() {
   const supabase = await createClient()
   const {
@@ -10,11 +14,11 @@ export default async function HRDashboard() {
 
   const name = user.user_metadata?.full_name || "there"
 
-  // Fetch real counts
+  // Fetch real counts + job IDs for avg score
   const [jobsResult, candidatesResult] = await Promise.all([
     supabase
       .from("jobs")
-      .select("id", { count: "exact", head: true })
+      .select("id", { count: "exact" })
       .eq("created_by", user.id)
       .eq("status", "ready"),
     supabase
@@ -25,6 +29,29 @@ export default async function HRDashboard() {
 
   const activeJobs = jobsResult.count ?? 0
   const candidateCount = candidatesResult.count ?? 0
+  const jobIds = (jobsResult.data ?? []).map((j) => j.id)
+
+  // Compute avg match score across all candidates for HR's jobs
+  let avgScore: number | null = null
+  if (jobIds.length > 0) {
+    const matchResults = await Promise.all(
+      jobIds.map((id) =>
+        supabase.rpc("match_candidates_for_job", { p_job_id: id })
+      )
+    )
+    const allScores: number[] = []
+    for (const { data } of matchResults) {
+      if (data) {
+        for (const c of data as CandidateScore[]) {
+          allScores.push(c.score)
+        }
+      }
+    }
+    if (allScores.length > 0) {
+      avgScore =
+        allScores.reduce((a, b) => a + b, 0) / allScores.length
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -56,9 +83,13 @@ export default async function HRDashboard() {
         </div>
         <div className="rounded-lg border border-gray-200 bg-white p-5">
           <h3 className="text-sm font-medium text-gray-500">Avg. Match Score</h3>
-          <p className="mt-2 text-2xl font-semibold text-gray-400">&mdash;</p>
+          <p className="mt-2 text-2xl font-semibold">
+            {avgScore !== null ? avgScore.toFixed(1) : <span className="text-gray-400">&mdash;</span>}
+          </p>
           <p className="mt-1 text-xs text-gray-400">
-            View per-job scores on the candidates page
+            {avgScore !== null
+              ? "Average across all candidates and jobs"
+              : "Scores appear after candidates match"}
           </p>
         </div>
       </div>

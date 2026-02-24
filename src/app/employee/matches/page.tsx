@@ -1,8 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { JobMatchCard } from "@/components/job-match-card"
-import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
-import { DemoToastButton } from "@/components/demo-toast-button"
 import { JobDescriptionModal } from "@/components/job-description-modal"
 import Link from "next/link"
 
@@ -110,34 +108,24 @@ export default async function MatchesPage() {
       {jobMatches.length > 0 && (
         <div className="space-y-3">
           {jobMatches.map((match) => (
-            <div key={match.job_id}>
-              <JobDescriptionModal
+            <JobDescriptionModal
+              key={match.job_id}
+              title={match.title}
+              company={match.company}
+              rawText={jobTexts[match.job_id] ?? null}
+            >
+              <JobMatchCard
                 title={match.title}
                 company={match.company}
-                rawText={jobTexts[match.job_id] ?? null}
-              >
-                <JobMatchCard
-                  title={match.title}
-                  company={match.company}
-                  score={match.score}
-                  matched_required={match.matched_required}
-                  matched_preferred={match.matched_preferred}
-                  matched_nice_to_have={match.matched_nice_to_have}
-                  missing_required={match.missing_required}
-                />
-              </JobDescriptionModal>
-              <div className="mt-2 flex items-center gap-2">
-                <DemoToastButton
-                  label="Apply"
-                  toastMessage="Application opened (demo)"
-                />
-                <GapAnalysisPanel
-                  jobId={match.job_id}
-                  resumeId={resume.id}
-                  mode="employee"
-                />
-              </div>
-            </div>
+                score={match.score}
+                matched_required={match.matched_required}
+                matched_preferred={match.matched_preferred}
+                matched_nice_to_have={match.matched_nice_to_have}
+                missing_required={match.missing_required}
+                jobId={match.job_id}
+                resumeId={resume.id}
+              />
+            </JobDescriptionModal>
           ))}
         </div>
       )}
