@@ -63,7 +63,7 @@ export default async function EmployeeDashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Resumes</h3>
           <p className="mt-2 text-2xl font-semibold">{resumeCount}</p>
           <p className="mt-1 text-xs text-gray-400">
@@ -72,7 +72,7 @@ export default async function EmployeeDashboard() {
               : "Processed resumes with extracted skills"}
           </p>
         </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Job Matches</h3>
           <p className="mt-2 text-2xl font-semibold">
             {latestResume ? matchCount : <span className="text-gray-400">&mdash;</span>}
@@ -83,7 +83,7 @@ export default async function EmployeeDashboard() {
               : "Matches appear after resume processing"}
           </p>
         </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Skills Extracted</h3>
           <p className="mt-2 text-2xl font-semibold">
             {latestResume ? skillCount : <span className="text-gray-400">&mdash;</span>}

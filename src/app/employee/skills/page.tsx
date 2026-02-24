@@ -35,13 +35,13 @@ export default async function SkillsPage() {
     return (
       <div className="max-w-3xl space-y-4">
         <h1 className="text-2xl font-semibold">My Skills</h1>
-        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No resume found. Upload a resume first to see your skills.
           </p>
           <Link
             href="/employee/resume"
-            className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
           >
             Upload Resume
           </Link>
@@ -94,7 +94,7 @@ export default async function SkillsPage() {
       </div>
 
       {/* Summary */}
-      <div className="rounded-lg border border-gray-200 bg-white p-5">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
         <div className="flex items-baseline gap-4">
           <div>
             <p className="text-2xl font-semibold">{matched.length}</p>
@@ -117,7 +117,7 @@ export default async function SkillsPage() {
 
       {/* Skills by category */}
       {matched.length === 0 && unmatchedSkills.length === 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No skills found in your resume. Try uploading a more detailed
             resume.
@@ -128,7 +128,7 @@ export default async function SkillsPage() {
       {sortedCategories.map((category) => (
         <div
           key={category}
-          className="rounded-lg border border-gray-200 bg-white p-5"
+          className="rounded-xl border border-gray-200 bg-white shadow-sm p-5"
         >
           <h3 className="text-sm font-medium text-gray-500 mb-3">
             {category}
@@ -169,7 +169,7 @@ export default async function SkillsPage() {
 
       {/* Unmatched skills */}
       {unmatchedSkills.length > 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500 mb-3">
             Not in taxonomy ({unmatchedSkills.length} skills)
           </h3>

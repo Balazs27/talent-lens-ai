@@ -47,7 +47,7 @@ export default function SignupPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm space-y-6 p-8 bg-white rounded-lg shadow">
+      <div className="w-full max-w-sm space-y-6 p-8 bg-white rounded-xl shadow-sm border border-gray-200">
         <div>
           <h1 className="text-2xl font-semibold text-center">Create account</h1>
           <p className="mt-1 text-sm text-gray-500 text-center">
@@ -110,7 +110,7 @@ export default function SignupPage() {
               <button
                 type="button"
                 onClick={() => setRole("employee")}
-                className={`flex-1 rounded-md border px-4 py-2 text-sm font-medium transition-colors ${
+                className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   role === "employee"
                     ? "border-blue-600 bg-blue-50 text-blue-700"
                     : "border-gray-300 text-gray-600 hover:bg-gray-50"
@@ -121,7 +121,7 @@ export default function SignupPage() {
               <button
                 type="button"
                 onClick={() => setRole("hr")}
-                className={`flex-1 rounded-md border px-4 py-2 text-sm font-medium transition-colors ${
+                className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                   role === "hr"
                     ? "border-blue-600 bg-blue-50 text-blue-700"
                     : "border-gray-300 text-gray-600 hover:bg-gray-50"
@@ -139,7 +139,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             {loading ? "Creating account..." : "Sign up"}
           </button>

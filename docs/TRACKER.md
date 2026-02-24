@@ -75,17 +75,17 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Employee Dashboard: Real metrics (resumes, matches, skills) from latest resume
 
 ### 6B — UI Consistency (Visual)
-- [ ] Better spacing and alignment across pages
-- [ ] Consistent button styles & card layout
-- [ ] Improve score badges
-- [ ] Reduce clutter, cleaner gap cards
-- [ ] Ensure typography consistency
+- [x] Better spacing and alignment across pages
+- [x] Consistent button styles & card layout
+- [x] Improve score badges
+- [x] Reduce clutter, cleaner gap cards
+- [x] Ensure typography consistency
 
 ### 6C — Landing Page (Hard requirement)
-- [ ] Landing page exists (modern SaaS look)
-- [ ] Hero + product explanation + CTA to Login
-- [ ] Accessible from root `/`
-- [ ] Works on desktop + mobile
+- [x] Landing page exists (modern SaaS look)
+- [x] Hero + product explanation + CTA to Login
+- [x] Accessible from root `/`
+- [x] Works on desktop + mobile
 
 ### Deployment + Demo
 - [ ] No obvious security issues (XSS, secrets)

@@ -27,25 +27,25 @@ export default async function EmployeeLayout({
         <nav className="space-y-1">
           <Link
             href="/employee/dashboard"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             Dashboard
           </Link>
           <Link
             href="/employee/resume"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             My Resume
           </Link>
           <Link
             href="/employee/matches"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             Job Matches
           </Link>
           <Link
             href="/employee/skills"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             My Skills
           </Link>

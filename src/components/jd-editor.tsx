@@ -108,14 +108,14 @@ export function JDEditor() {
         <button
           type="submit"
           disabled={loading || text.trim().length < 50}
-          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Extracting requirements..." : "Extract Requirements"}
         </button>
       </form>
 
       {loading && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             Analyzing job description and extracting requirements... This may
             take 5-15 seconds.
@@ -126,7 +126,7 @@ export function JDEditor() {
       {result && (
         <div className="space-y-4">
           {/* Job metadata */}
-          <div className="rounded-lg border border-gray-200 bg-white p-5">
+          <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
             <h3 className="text-lg font-medium mb-3">Extraction Result</h3>
             {result.parsed.title && (
               <p className="text-sm text-gray-600">
@@ -161,7 +161,7 @@ export function JDEditor() {
 
           {/* Matched skills grouped by importance */}
           {result.matchedSkills.length > 0 && (
-            <div className="rounded-lg border border-gray-200 bg-white p-5">
+            <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
               <h3 className="text-lg font-medium mb-3">
                 Matched Skills ({result.matchedSkills.length})
               </h3>
@@ -191,14 +191,14 @@ export function JDEditor() {
           )}
 
           {/* View Candidates CTA */}
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 text-center">
+          <div className="rounded-xl border border-blue-200 bg-blue-50 shadow-sm p-5 text-center">
             <p className="text-sm text-blue-800">
               Requirements have been extracted and matched. See which candidates
               fit this role.
             </p>
             <Link
               href={`/hr/jobs/${result.jobId}/candidates`}
-              className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
             >
               View Candidates
             </Link>
@@ -206,7 +206,7 @@ export function JDEditor() {
 
           {/* Unmatched skills */}
           {result.parsed.skills.length > result.matchedSkills.length && (
-            <div className="rounded-lg border border-gray-200 bg-white p-5">
+            <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
               <h3 className="text-sm font-medium text-gray-500 mb-2">
                 Not in taxonomy (
                 {result.parsed.skills.length - result.matchedSkills.length}{" "}

@@ -52,11 +52,11 @@ export function GapAnalysisPanel({
 
   if (!result) {
     return (
-      <div className="mt-2 flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 text-sm font-medium text-purple-700 hover:bg-purple-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? "Analyzing..." : "Analyze Gap"}
         </button>
@@ -71,7 +71,7 @@ export function GapAnalysisPanel({
   }
 
   return (
-    <div className="mt-3 rounded-lg border border-purple-100 bg-purple-50/30 p-4 space-y-4">
+    <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-4 space-y-4">
       {result.cached && (
         <span className="inline-block text-[10px] text-gray-400 uppercase">
           Cached result
@@ -229,7 +229,7 @@ function DeterministicSection({
 
 function EmployeeLLMSection({ data }: { data: EmployeeGapLLM }) {
   return (
-    <div className="border-t border-purple-100 pt-3 space-y-3">
+    <div className="border-t border-gray-200 pt-3 space-y-3">
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-semibold text-gray-800">
           Learning Recommendations
@@ -253,9 +253,9 @@ function EmployeeLLMSection({ data }: { data: EmployeeGapLLM }) {
             {data.priority_order.map((skill, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-1 rounded-full bg-purple-100 border border-purple-200 px-2.5 py-0.5 text-xs text-purple-800"
+                className="inline-flex items-center gap-1 rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-xs text-blue-800"
               >
-                <span className="text-purple-400 font-mono text-[10px]">
+                <span className="text-blue-400 font-mono text-[10px]">
                   {i + 1}
                 </span>
                 {skill}
@@ -285,10 +285,10 @@ function LearningPlanCard({
   index: number
 }) {
   return (
-    <div className="rounded-md bg-white border border-gray-100 p-3">
+    <div className="rounded-lg bg-white border border-gray-200 shadow-sm p-3">
       <div className="flex items-center justify-between">
         <h5 className="text-sm font-medium text-gray-900">
-          <span className="text-purple-400 mr-1.5">{index + 1}.</span>
+          <span className="text-blue-400 mr-1.5">{index + 1}.</span>
           {item.skill}
         </h5>
         <span className="text-xs text-gray-400">
@@ -300,7 +300,7 @@ function LearningPlanCard({
         <ul className="mt-1.5 text-xs text-gray-600 space-y-0.5">
           {item.recommended_actions.map((action, j) => (
             <li key={j} className="flex items-start gap-1.5">
-              <span className="text-purple-300 mt-0.5">-</span>
+              <span className="text-gray-300 mt-0.5">-</span>
               {action}
             </li>
           ))}
@@ -314,7 +314,7 @@ function LearningPlanCard({
 
 function HrLLMSection({ data }: { data: HrGapLLM }) {
   return (
-    <div className="border-t border-purple-100 pt-3 space-y-3">
+    <div className="border-t border-gray-200 pt-3 space-y-3">
       <h4 className="text-sm font-semibold text-gray-800">
         Executive Summary
       </h4>
@@ -338,7 +338,7 @@ function HrLLMSection({ data }: { data: HrGapLLM }) {
           <ul className="text-xs text-gray-600 space-y-0.5">
             {data.training_recommendations.map((rec, i) => (
               <li key={i} className="flex items-start gap-1.5">
-                <span className="text-purple-300 mt-0.5">-</span>
+                <span className="text-gray-300 mt-0.5">-</span>
                 {rec}
               </li>
             ))}

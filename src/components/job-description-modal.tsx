@@ -52,11 +52,11 @@ export function JobDescriptionModal({
 
           {/* Modal */}
           <div
-            className="relative w-full max-w-2xl max-h-[80vh] rounded-lg bg-white shadow-xl flex flex-col"
+            className="relative w-full max-w-2xl max-h-[80vh] rounded-xl border border-gray-200 bg-white shadow-xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-start justify-between border-b border-gray-200 p-5">
+            <div className="flex items-start justify-between border-b border-gray-200 px-5 py-4">
               <div className="min-w-0 pr-4">
                 <h2 className="text-lg font-semibold text-gray-900 truncate">
                   {title}
@@ -67,7 +67,7 @@ export function JobDescriptionModal({
               </div>
               <button
                 onClick={close}
-                className="flex-shrink-0 rounded-md p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+                className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
                 aria-label="Close"
               >
                 <svg

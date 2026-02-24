@@ -27,25 +27,25 @@ export default async function HRLayout({
         <nav className="space-y-1">
           <Link
             href="/hr/dashboard"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             Dashboard
           </Link>
           <Link
             href="/hr/jobs"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             Job Descriptions
           </Link>
           <Link
             href="/hr/jobs/new"
-            className="block rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 pl-6"
+            className="block rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors pl-6"
           >
             + Create New
           </Link>
           <Link
             href="/hr/jobs"
-            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
           >
             Candidates
           </Link>

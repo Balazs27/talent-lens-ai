@@ -63,7 +63,7 @@ export default async function HRDashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Active Jobs</h3>
           <p className="mt-2 text-2xl font-semibold">{activeJobs}</p>
           <p className="mt-1 text-xs text-gray-400">
@@ -72,7 +72,7 @@ export default async function HRDashboard() {
               : "Job descriptions with extracted skills"}
           </p>
         </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Candidates</h3>
           <p className="mt-2 text-2xl font-semibold">{candidateCount}</p>
           <p className="mt-1 text-xs text-gray-400">
@@ -81,7 +81,7 @@ export default async function HRDashboard() {
               : "Resumes with extracted skills in the pool"}
           </p>
         </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
           <h3 className="text-sm font-medium text-gray-500">Avg. Match Score</h3>
           <p className="mt-2 text-2xl font-semibold">
             {avgScore !== null ? avgScore.toFixed(1) : <span className="text-gray-400">&mdash;</span>}

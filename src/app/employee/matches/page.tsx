@@ -37,13 +37,13 @@ export default async function MatchesPage() {
     return (
       <div className="max-w-3xl space-y-4">
         <h1 className="text-2xl font-semibold">Job Matches</h1>
-        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No resume found. Upload a resume first to see matching jobs.
           </p>
           <Link
             href="/employee/resume"
-            className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="mt-3 inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
           >
             Upload Resume
           </Link>
@@ -97,7 +97,7 @@ export default async function MatchesPage() {
       )}
 
       {!rpcError && jobMatches.length === 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 text-center">
           <p className="text-sm text-gray-500">
             No matching jobs found. Check back after more job descriptions have
             been posted.

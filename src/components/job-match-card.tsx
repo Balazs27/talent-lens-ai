@@ -27,13 +27,15 @@ export function JobMatchCard({
   resumeId,
 }: JobMatchCardProps) {
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-5 flex items-start gap-5">
+    <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-4 flex items-start gap-4">
       {/* Score badge */}
-      <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-blue-50 border border-blue-200 flex flex-col items-center justify-center">
-        <span className="text-xl font-bold text-blue-700">
+      <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-blue-50 border border-blue-200 flex flex-col items-center justify-center">
+        <span className="text-lg font-bold text-blue-700">
           {score.toFixed(1)}
         </span>
-        <span className="text-[10px] text-blue-400 uppercase">score</span>
+        <span className="text-[10px] text-blue-400 uppercase tracking-wide">
+          score
+        </span>
       </div>
 
       {/* Content */}
@@ -45,27 +47,26 @@ export function JobMatchCard({
           <p className="text-sm text-gray-500 mt-0.5">{company}</p>
         )}
 
-        {/* Skill match breakdown */}
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
           <span className="text-green-700">
             {matched_required} required matched
           </span>
           {matched_preferred > 0 && (
             <span className="text-amber-600">
-              {matched_preferred} preferred matched
+              {matched_preferred} preferred
             </span>
           )}
           {matched_nice_to_have > 0 && (
             <span className="text-gray-500">
-              {matched_nice_to_have} nice-to-have matched
+              {matched_nice_to_have} nice-to-have
             </span>
           )}
         </div>
 
-        {/* Missing required — prominently red */}
         {missing_required > 0 && (
-          <p className="mt-2 text-sm font-medium text-red-600">
-            {missing_required} required skill{missing_required > 1 ? "s" : ""} missing
+          <p className="mt-1.5 text-xs font-medium text-red-600">
+            {missing_required} required skill
+            {missing_required > 1 ? "s" : ""} missing
           </p>
         )}
       </div>
