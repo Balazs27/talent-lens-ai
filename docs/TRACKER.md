@@ -60,6 +60,7 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] HR: Fix “View Candidates” routing (no 404)
 - [x] HR: Add Invite button on candidate cards (UI-only toast)
 - [x] HR: Dashboard tiles not empty + copy fixes (“Job description processing”)
+- [x] HR: "View Candidates" CTA after job extraction
 - [x] Employee: Add Apply button on matches cards (UI-only toast)
 - [x] Employee: Job description modal (click job title/card)
 - [x] Employee: “View Matches” CTA after resume extraction

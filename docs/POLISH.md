@@ -11,6 +11,7 @@ Goal is **high perceived quality** (clean UX + consistent UI) without changing c
 - HR: “View Candidates” button must route to the correct candidates page (no 404).
 - HR Candidates page: add **Invite** button on each candidate card (UI-only, demo toast).
 - HR Dashboard: avoid empty/placeholder look; show meaningful counts and fix wording.
+- After successful job extraction, show a “View Candidates” CTA (similar to Employee “View Matches”).
 - Employee Matches page: add **Apply** button (UI-only, demo toast).
 - Employee Matches page: clicking job title/card opens **Job Description modal** overlay.
 - Employee Resume page: after extraction, show **View Matches** CTA button.
@@ -51,6 +52,7 @@ Because users can create multiple resumes, for V1 polish:
   - Candidates count (or reasonable placeholder derived from available data)
   - Avg score (or `—` with tooltip)
 - ✅ Replace “JD processing” with “Job description processing”.
+- After successful job extraction, show a “View Candidates” CTA (similar to Employee “View Matches”).
 
 ### Employee Mode
 - ✅ Job Matches cards show an **Apply** button (UI-only toast).
