@@ -1,7 +1,14 @@
 import type { ReactNode } from "react"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import Link from "next/link"
+import { SidebarNav } from "@/components/sidebar-nav"
+
+const hrNav = [
+  { href: "/hr/dashboard", label: "Dashboard" },
+  { href: "/hr/jobs", label: "Job Descriptions" },
+  { href: "/hr/jobs/new", label: "+ Create New", indent: true },
+  { href: "/hr/jobs", label: "Candidates" },
+]
 
 export default async function HRLayout({
   children,
@@ -18,56 +25,24 @@ export default async function HRLayout({
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-56 bg-blue-50/40 border-r border-blue-100 p-4 space-y-1">
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-blue-600">TalentLens</h2>
-          <p className="text-xs text-gray-400">HR / Recruiter</p>
-        </div>
-        <nav className="space-y-0.5">
-          <Link
-            href="/hr/dashboard"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
-          >
-            Dashboard
-          </Link>
-          <Link
-            href="/hr/jobs"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
-          >
-            Job Descriptions
-          </Link>
-          <Link
-            href="/hr/jobs/new"
-            className="block rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-blue-100/60 hover:text-blue-600 transition-colors pl-6"
-          >
-            + Create New
-          </Link>
-          <Link
-            href="/hr/jobs"
-            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-blue-100/60 hover:text-blue-700 transition-colors"
-          >
-            Candidates
-          </Link>
-        </nav>
-      </aside>
+      <SidebarNav items={hrNav} roleLabel="HR / Recruiter" />
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col bg-gray-50">
+      <div className="flex-1 flex flex-col bg-slate-50/80">
         {/* Top bar */}
-        <header className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-6">
-          <span className="text-sm text-gray-500">
+        <header className="h-14 flex items-center justify-between px-6 bg-white/80 backdrop-blur-sm border-b border-slate-200/80 shadow-[0_1px_2px_rgba(37,99,235,0.04)]">
+          <span className="text-sm font-medium text-slate-600">
             {user.user_metadata?.full_name || user.email}
           </span>
           <form action="/api/auth/signout" method="post">
             <button
               type="submit"
-              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600"
             >
               Sign out
             </button>
           </form>
         </header>
+
         <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
