@@ -60,7 +60,7 @@ Each slice ends with something clickable and testable.
 ---
 
 ## Slice 3 — Matching (Employee → Jobs)
-**Goal:** Employee sees ranked jobs based on vector similarity + skill overlap.
+**Goal:** Employee sees ranked jobs based on skill overlap.
 
 **Includes**
 - RPC `match_jobs_for_resume`
@@ -89,9 +89,10 @@ Each slice ends with something clickable and testable.
 ## Slice 5 — Gap Analysis (On-demand)
 **Goal:** “Analyze gap” provides actionable view.
 
-**Options**
-- V1: deterministic gap list (job skills minus resume skills)
-- V1.5: LLM recommendations + time-to-close
+**Includes**
+- Deterministic gap list (job skills minus resume skills)
+- LLM recommendations + time-to-close (structured JSON)
+- Cache layer for speed
 
 **Done when**
 - Click → results within a few seconds
@@ -100,15 +101,33 @@ Each slice ends with something clickable and testable.
 ---
 
 ## Slice 6 — Polish & Demo Readiness
-- loading states
-- error handling
-- basic caching to `match_scores`
-- nicer UI
-- deployment checklist
+
+### 6A — Small Enhancements (Functional)
+**Goal:** No broken routes; demo feels complete.
+- Fix HR "View Candidates" routing
+- Add HR Invite button (UI-only toast)
+- Improve HR/Employee dashboards (avoid empty state)
+- Employee Apply button (UI-only toast)
+- Employee job description modal
+- Employee “View Matches” CTA after resume extraction
+- Wire "My Skills" page
+
+### 6B — UI Consistency (Visual)
+**Goal:** Consistent spacing, cards, buttons, badges, typography.
+
+### 6C — Landing Page (Hard requirement)
+**Goal:** Modern SaaS landing page at `/` with CTA to login.
+
+**Important demo rule (V1): Latest resume**
+Because a user may have multiple resumes, all Employee-side views must use the **latest resume**:
+- `ORDER BY resumes.created_at DESC LIMIT 1`
+Show label: “Using latest resume”
+(No schema changes; “active resume” is V2.)
 
 ---
 
 ## Working Agreement with Agents
-- Agents must implement **one slice per task**.
-- Agents must update `docs/TRACKER.md`.
-- If scope expands beyond slice definition, pause and propose trade-offs.
+- Agents must implement **one scoped task per run**.
+- Agents must update `TRACKER.md`.
+- If scope expands beyond definition, pause and propose trade-offs.
+- Read `POLISH.md` during Slice 6 work to avoid drift.

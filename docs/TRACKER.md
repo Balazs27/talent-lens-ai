@@ -52,12 +52,35 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] UI: “Analyze gap” button exists
 - [x] API: POST `/api/analyze/gap` implemented
 - [x] Deterministic gap list works
-- [x] (Optional) LLM recommendations integrated
+- [x] LLM recommendations integrated (structured JSON)
 - [x] Cached or computed efficiently
 
 ## Slice 6 — Polish & Demo Readiness
-- [ ] Loading states everywhere needed
+### 6A — Small Enhancements (Functional polish)
+- [x] HR: Fix “View Candidates” routing (no 404)
+- [x] HR: Add Invite button on candidate cards (UI-only toast)
+- [x] HR: Dashboard tiles not empty + copy fixes (“Job description processing”)
+- [x] Employee: Add Apply button on matches cards (UI-only toast)
+- [x] Employee: Job description modal (click job title/card)
+- [x] Employee: “View Matches” CTA after resume extraction
+- [x] Employee: My Skills page wired to latest resume skills
+- [ ] Global: Better empty states + subtle loading polish
+
+### 6B — UI Consistency (Visual)
+- [ ] Better spacing and alignment across pages
+- [ ] Consistent button styles & card layout
+- [ ] Improve score badges
+- [ ] Reduce clutter, cleaner gap cards
+- [ ] Ensure typography consistency
+
+### 6C — Landing Page (Hard requirement)
+- [ ] Landing page exists (modern SaaS look)
+- [ ] Hero + product explanation + CTA to Login
+- [ ] Accessible from root `/`
+- [ ] Works on desktop + mobile
+
+### Deployment + Demo
 - [ ] No obvious security issues (XSS, secrets)
 - [ ] README is accurate (setup + env vars)
 - [ ] Deployed to Vercel
-- [ ] Demo script prepared
+- [ ] Demo script prepared (key features to show, talking points)

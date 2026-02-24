@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { JobMatchCard } from "@/components/job-match-card"
 import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
+import { DemoToastButton } from "@/components/demo-toast-button"
+import { JobDescriptionModal } from "@/components/job-description-modal"
 import Link from "next/link"
 
 interface JobMatch {
@@ -60,13 +62,31 @@ export default async function MatchesPage() {
 
   const jobMatches = (matches ?? []) as JobMatch[]
 
+  // Fetch raw_text for matched jobs (for modal)
+  const jobTexts: Record<string, string> = {}
+  if (jobMatches.length > 0) {
+    const { data: jobData } = await supabase
+      .from("jobs")
+      .select("id, raw_text")
+      .in(
+        "id",
+        jobMatches.map((m) => m.job_id)
+      )
+
+    if (jobData) {
+      for (const j of jobData) {
+        jobTexts[j.id] = j.raw_text
+      }
+    }
+  }
+
   return (
     <div className="max-w-3xl space-y-4">
       <div>
         <h1 className="text-2xl font-semibold">Job Matches</h1>
         <p className="mt-1 text-sm text-gray-500">
           Jobs ranked by skill overlap with your resume. Higher scores indicate
-          better fit.
+          better fit. Click a job card to view the full description.
         </p>
       </div>
 
@@ -91,20 +111,32 @@ export default async function MatchesPage() {
         <div className="space-y-3">
           {jobMatches.map((match) => (
             <div key={match.job_id}>
-              <JobMatchCard
+              <JobDescriptionModal
                 title={match.title}
                 company={match.company}
-                score={match.score}
-                matched_required={match.matched_required}
-                matched_preferred={match.matched_preferred}
-                matched_nice_to_have={match.matched_nice_to_have}
-                missing_required={match.missing_required}
-              />
-              <GapAnalysisPanel
-                jobId={match.job_id}
-                resumeId={resume.id}
-                mode="employee"
-              />
+                rawText={jobTexts[match.job_id] ?? null}
+              >
+                <JobMatchCard
+                  title={match.title}
+                  company={match.company}
+                  score={match.score}
+                  matched_required={match.matched_required}
+                  matched_preferred={match.matched_preferred}
+                  matched_nice_to_have={match.matched_nice_to_have}
+                  missing_required={match.missing_required}
+                />
+              </JobDescriptionModal>
+              <div className="mt-2 flex items-center gap-2">
+                <DemoToastButton
+                  label="Apply"
+                  toastMessage="Application opened (demo)"
+                />
+                <GapAnalysisPanel
+                  jobId={match.job_id}
+                  resumeId={resume.id}
+                  mode="employee"
+                />
+              </div>
             </div>
           ))}
         </div>

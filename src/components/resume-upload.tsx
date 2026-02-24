@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 
 interface MatchedSkill {
   skillId: number
@@ -172,6 +173,20 @@ export function ResumeUpload() {
               </div>
             </div>
           )}
+
+          {/* View Matches CTA */}
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 text-center">
+            <p className="text-sm text-blue-800">
+              Your skills have been extracted and matched. See which jobs fit
+              your profile.
+            </p>
+            <Link
+              href="/employee/matches"
+              className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            >
+              View Matches
+            </Link>
+          </div>
 
           {/* Unmatched skills (extracted but not in taxonomy) */}
           {result.parsed.skills.length > result.matchedSkills.length && (
