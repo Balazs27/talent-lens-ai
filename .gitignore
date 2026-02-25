@@ -21,3 +21,6 @@ reference
 
 # macOS system files
 .DS_Store
+
+# TypeScript build info
+tsconfig.tsbuildinfo
