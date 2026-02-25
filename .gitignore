@@ -15,3 +15,9 @@ node_modules
 
 # index.html
 index.html
+
+# AI Engineering Bootcamp files
+reference
+
+# macOS system files
+.DS_Store

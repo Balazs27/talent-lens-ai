@@ -1,7 +1,7 @@
 export function FeatureGridSection() {
   const features = [
     { title: "Structured Extraction", desc: "We turn messy resumes and vague job descriptions into clean, normalized taxonomy data instantly.", icon: "⚡️" },
-    { title: "Semantic Vector Search", desc: "Go beyond exact-match keywords. We understand the intent behind skills using advanced embeddings.", icon: "🧠" },
+    { title: "Semantic Vector Search", desc: "Go beyond exact-match keywords. We understand the intent behind skills using advanced embeddings.", icon: "🧠", comingSoon: true },
     { title: "Deterministic Scoring", desc: "No black-box AI scores. See exactly which capabilities matched and which are missing with 100% clarity.", icon: "🎯" }
   ];
 
@@ -15,7 +15,12 @@ export function FeatureGridSection() {
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((f, i) => (
-            <div key={i} className="bg-white rounded-[2rem] p-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-slate-200/60 hover:-translate-y-1 transition-all duration-300">
+            <div key={i} className="relative bg-white rounded-[2rem] p-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-slate-200/60 hover:-translate-y-1 transition-all duration-300">
+              {f.comingSoon && (
+                <span className="absolute top-5 right-5 rounded-full bg-blue-50 border border-blue-200/60 px-2.5 py-0.5 text-[11px] font-semibold text-blue-600 tracking-wide">
+                  Coming Soon
+                </span>
+              )}
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 flex items-center justify-center text-2xl mb-8 shadow-inner">
                 {f.icon}
               </div>
