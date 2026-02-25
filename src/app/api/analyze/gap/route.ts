@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { rateLimit } from "@/lib/rate-limit"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { analyzeGapWithLLM } from "@/lib/analysis/gap-analyzer"
 import type { DeterministicGap } from "@/lib/types/gap-analysis"
@@ -7,6 +8,9 @@ import type { DeterministicGap } from "@/lib/types/gap-analysis"
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 
 export async function POST(request: Request) {
+  const rateLimitResponse = rateLimit(request)
+  if (rateLimitResponse) return rateLimitResponse
+
   const supabase = await createClient()
 
   // 1. Auth check

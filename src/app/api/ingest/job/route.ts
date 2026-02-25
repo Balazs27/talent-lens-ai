@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { rateLimit } from "@/lib/rate-limit"
 import { extractSkillsFromJD } from "@/lib/ingestion/jd-parser"
 import { SchemaValidationError } from "@/lib/ingestion/resume-parser"
 import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
 import type { JobExtraction, ExtractedJobSkill } from "@/lib/types/job"
 
 export async function POST(request: Request) {
+  const rateLimitResponse = rateLimit(request)
+  if (rateLimitResponse) return rateLimitResponse
+
   const supabase = await createClient()
 
   // 1. Auth check

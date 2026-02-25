@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { rateLimit } from "@/lib/rate-limit"
 import { createAdminClient } from "@/lib/supabase/admin"
 import {
   extractSkillsFromResume,
@@ -9,6 +10,9 @@ import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
 import type { ResumeExtraction, ExtractedSkill } from "@/lib/types/resume"
 
 export async function POST(request: Request) {
+  const rateLimitResponse = rateLimit(request)
+  if (rateLimitResponse) return rateLimitResponse
+
   const supabase = await createClient()
 
   // 1. Auth check
