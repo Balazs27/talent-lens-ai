@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Toast, Spinner } from "@/components/toast"
 import type {
   GapAnalysisResponse,
   EmployeeGapLLM,
@@ -23,9 +24,11 @@ export function GapAnalysisPanel({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<GapAnalysisResponse | null>(null)
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
 
   async function handleAnalyze() {
     setError(null)
+    setToast(null)
     setLoading(true)
 
     try {
@@ -38,13 +41,17 @@ export function GapAnalysisPanel({
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || `Request failed (${res.status})`)
+        const msg = data.error || `Request failed (${res.status})`
+        setError(msg)
+        setToast({ message: msg, type: "error" })
         return
       }
 
       setResult(data)
+      setToast({ message: "Gap analysis complete!", type: "success" })
     } catch {
       setError("Network error. Please try again.")
+      setToast({ message: "Network error. Please try again.", type: "error" })
     } finally {
       setLoading(false)
     }
@@ -52,21 +59,27 @@ export function GapAnalysisPanel({
 
   if (!result) {
     return (
-      <div className="flex items-center gap-3">
-        <button
-          onClick={handleAnalyze}
-          disabled={loading}
-          className="rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {loading ? "Analyzing..." : "Analyze Gap"}
-        </button>
-        {loading && (
-          <span className="text-xs text-slate-400">
-            Computing gap analysis...
-          </span>
+      <>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleAnalyze}
+            disabled={loading}
+            className="inline-flex items-center rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading && <Spinner />}
+            {loading ? "Analyzing..." : "Analyze Gap"}
+          </button>
+          {loading && (
+            <span className="text-xs text-slate-400">
+              Computing gap analysis...
+            </span>
+          )}
+          {error && <span className="text-xs text-red-600">{error}</span>}
+        </div>
+        {toast && (
+          <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
         )}
-        {error && <span className="text-xs text-red-600">{error}</span>}
-      </div>
+      </>
     )
   }
 
@@ -95,6 +108,9 @@ export function GapAnalysisPanel({
         <p className="text-xs text-slate-400">
           LLM recommendations unavailable.
         </p>
+      )}
+      {toast && (
+        <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
       )}
     </div>
   )

@@ -10,7 +10,7 @@ export function ContactSection() {
         <span className="font-bold text-white">TalentLens</span>
       </div>
       <p className="text-sm text-slate-500 mb-6">
-        © $(date +%Y) TalentLens AI. All rights reserved.
+        © {new Date().getFullYear()} TalentLens AI. All rights reserved.
       </p>
       <div className="flex gap-6">
         <Link href="#" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Twitter</Link>

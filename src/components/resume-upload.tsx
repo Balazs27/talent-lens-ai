@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { Toast, Spinner } from "@/components/toast"
 
 interface MatchedSkill {
   skillId: number
@@ -33,11 +34,13 @@ export function ResumeUpload() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<IngestResult | null>(null)
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
     setResult(null)
+    setToast(null)
     setLoading(true)
 
     try {
@@ -50,14 +53,18 @@ export function ResumeUpload() {
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || `Request failed (${res.status})`)
+        const msg = data.error || `Request failed (${res.status})`
+        setError(msg)
+        setToast({ message: msg, type: "error" })
         return
       }
 
       setResult(data)
+      setToast({ message: `Resume processed — ${data.matchedSkills.length} skills matched!`, type: "success" })
       setText("")
     } catch {
       setError("Network error. Please try again.")
+      setToast({ message: "Network error. Please try again.", type: "error" })
     } finally {
       setLoading(false)
     }
@@ -96,8 +103,9 @@ export function ResumeUpload() {
         <button
           type="submit"
           disabled={loading || text.trim().length < 50}
-          className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
         >
+          {loading && <Spinner />}
           {loading ? "Extracting skills..." : "Extract Skills"}
         </button>
       </form>
@@ -218,6 +226,10 @@ export function ResumeUpload() {
             </div>
           )}
         </div>
+      )}
+
+      {toast && (
+        <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
       )}
     </div>
   )
