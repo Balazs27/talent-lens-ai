@@ -5,6 +5,7 @@ import { FeatureGridSection } from "@/components/landing/FeatureGridSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ProductPreviewSection } from "@/components/landing/ProductPreviewSection";
 import { CtaSection } from "@/components/landing/CtaSection";
+import { PilotSection } from "@/components/landing/PilotSection";
 import { ContactSection } from "@/components/landing/ContactSection";
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
         <HowItWorksSection />
         <ProductPreviewSection />
         <CtaSection />
+        <PilotSection />
       </main>
       <ContactSection />
     </div>
