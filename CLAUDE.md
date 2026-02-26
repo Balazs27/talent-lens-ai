@@ -1,11 +1,11 @@
-# AGENTS.md — TalentLens AI
+# CLAUDE.md — TalentLens AI
 
 This file is the behavioral contract for AI coding agents working in this repo.
 It defines **what this project is**, **the architecture it follows**, and guardrails
 to prevent “agent drift” (over-editing, guessing, breaking conventions, or introducing risk).
 
 Precedence:
-**AGENTS.md > docs/ARCHITECTURE.md > docs/PLAN.md > docs/UI.md > README.md > code comments**.
+**CLAUDE.md > docs/ARCHITECTURE_MATCHING.md > docs/ARCHITECTURE.md > docs/PLAN.md > docs/UI.md > README.md > code comments**
 
 ---
 
@@ -71,6 +71,38 @@ This is **not a chatbot-first product**. LLM calls are used for:
 - Use env vars only (`.env.local`). Document required env vars in `.env.example`.
 - Never render LLM output via `dangerouslySetInnerHTML` unless sanitized.
 
+### 1.6 Core Data Invariant: One Active Resume per Employee (SCD2)
+
+**Schema note**
+- `resumes.is_active` may not exist yet in older environments. Add via migration + backfill.
+
+**Invariant**
+- A user may have multiple historical resumes, but **exactly one** resume must be `is_active = true` per `user_id`.
+- All matching, skill displays, and gap analysis must use **only the active resume**.
+- **Never** query `resume_skills` by `user_id`. Always scope by `resume_id` (active resume id).
+
+**Canonical active resume selector**
+- Active resume id for a user:
+  - `SELECT id FROM resumes WHERE user_id = auth.uid() AND is_active = true LIMIT 1`
+
+**Upload behavior**
+When an employee uploads a resume:
+1) Set all existing resumes for that user to `is_active = false`
+2) Insert new resume with `is_active = true`
+3) Run skill extraction for the new resume
+4) Insert `resume_skills` rows tied **only** to the new `resume_id`
+
+**DB enforcement**
+- Add a partial unique index to enforce the invariant:
+  - “Only one active resume per user” (`WHERE is_active = true`)
+
+**Definition of Done (for this feature)**
+- Uploading a new resume results in:
+  - exactly one active resume for the user
+  - employee matches update to use the new resume
+  - HR no longer sees duplicate candidate entries caused by old resumes
+- Provide SQL verification queries + a manual test checklist (employee + HR flows)
+
 ---
 
 ## 2) Required Agent Workflow (Must follow)
@@ -90,6 +122,12 @@ For every task/slice, follow this sequence:
 3) **Verify**
    - Provide the exact commands to run locally (e.g., `npm run dev`, `npm run build`)
    - Ensure TypeScript builds (and lint/typecheck if available)
+
+   **Verification Commands**
+    - Dev: `npm run dev`
+    - Build: `npm run build`
+    - Lint: `npm run lint` (if configured)
+    - Typecheck: `npm run typecheck` (if configured)
 
 4) **Update docs**
    - Update `docs/TRACKER.md` checkboxes for the slice

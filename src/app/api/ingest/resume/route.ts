@@ -40,26 +40,20 @@ export async function POST(request: Request) {
     )
   }
 
-  // 3. Insert resume row (status: processing, parsed: null)
-  const { data: resume, error: insertError } = await supabase
-    .from("resumes")
-    .insert({
-      user_id: user.id,
-      raw_text: resumeText,
-      status: "processing",
-      parsed: null,
-    })
-    .select("id")
-    .single()
+  // 3. Atomically deactivate old resumes + insert new active resume
+  //    Uses insert_active_resume RPC to guarantee the partial unique index
+  //    (one active resume per user) is never violated mid-transaction.
+  const { data: resumeId, error: insertError } = await supabase.rpc(
+    "insert_active_resume",
+    { p_raw_text: resumeText }
+  )
 
-  if (insertError || !resume) {
+  if (insertError || !resumeId) {
     return NextResponse.json(
       { error: "Failed to create resume record" },
       { status: 500 }
     )
   }
-
-  const resumeId = resume.id
 
   // 4. Call OpenAI + validate with Zod
   let extraction: ResumeExtraction

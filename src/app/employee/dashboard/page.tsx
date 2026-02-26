@@ -111,7 +111,9 @@ export default async function EmployeeDashboard() {
 
   const name = user.user_metadata?.full_name || "there"
 
-  // Fetch resume count + latest resume in parallel
+  // Fetch resume count + active resume in parallel
+  // resumeCountResult: total ready resumes for display metric
+  // latestResumeResult: the single active resume (partial unique index = at most 1 row)
   const [resumeCountResult, latestResumeResult] = await Promise.all([
     supabase
       .from("resumes")
@@ -123,8 +125,7 @@ export default async function EmployeeDashboard() {
       .select("id")
       .eq("user_id", user.id)
       .eq("status", "ready")
-      .order("created_at", { ascending: false })
-      .limit(1)
+      .eq("is_active", true)
       .single(),
   ])
 

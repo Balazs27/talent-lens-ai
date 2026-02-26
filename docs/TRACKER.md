@@ -23,6 +23,18 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Errors handled properly (400/401/500)
 - [x] Tested on 3 real resumes
 
+## Slice 1.1 — Single Active Resume (SCD2) (Employee)
+
+- [x] DB: Add `resumes.is_active` boolean (default true) via migration (`00013_resume_is_active.sql`)
+- [x] DB: Backfill so each user has exactly 1 active resume (latest = true, others = false)
+- [x] DB: Add partial unique index (one active resume per user where `is_active=true`)
+- [x] API: Resume upload deactivates previous resumes before inserting new active resume (atomic via `insert_active_resume` RPC)
+- [x] DB: `resume_skills` always tied to the newly created `resume_id` only
+- [x] Matching: Employee job matching uses active resume only (`employee/matches`, `employee/skills`, `employee/dashboard`, `api/match/jobs` — all use `.eq("is_active", true)`)
+- [x] Matching: HR candidate matching does not duplicate candidates due to old resumes (`match_candidates_for_job` RPC filters `r.is_active = true`; HR dashboard candidate count filtered)
+- [x] RLS/Queries: No queries fetch `resume_skills` by `user_id` (must be by active `resume_id`)
+- [x] Verification: SQL checks + manual test checklist (upload 2–3 resumes, confirm 1 active)
+
 ## Slice 2 — Job Ingestion (HR)
 - [x] UI: JD editor page exists
 - [x] API: POST `/api/ingest/job` implemented
@@ -88,7 +100,7 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Works on desktop + mobile
 
 ### Deployment + Demo
-- [ ] No obvious security issues (XSS, secrets)
-- [ ] README is accurate (setup + env vars)
-- [ ] Deployed to Vercel
-- [ ] Demo script prepared (key features to show, talking points)
+- [x] No obvious security issues (XSS, secrets)
+- [x] README is accurate (setup + env vars)
+- [x] Deployed to Vercel
+- [x] Demo script prepared (key features to show, talking points)

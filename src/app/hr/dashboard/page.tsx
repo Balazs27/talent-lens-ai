@@ -77,7 +77,8 @@ export default async function HRDashboard() {
     supabase
       .from("resumes")
       .select("id", { count: "exact", head: true })
-      .eq("status", "ready"),
+      .eq("status", "ready")
+      .eq("is_active", true),
   ])
 
   const activeJobs = jobsResult.count ?? 0

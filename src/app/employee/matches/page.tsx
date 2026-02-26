@@ -23,14 +23,13 @@ export default async function MatchesPage() {
   } = await supabase.auth.getUser()
   if (!user) redirect("/login")
 
-  // Fetch user's latest ready resume
+  // Fetch user's active ready resume (partial unique index guarantees at most 1 row)
   const { data: resume } = await supabase
     .from("resumes")
     .select("id")
     .eq("user_id", user.id)
     .eq("status", "ready")
-    .order("created_at", { ascending: false })
-    .limit(1)
+    .eq("is_active", true)
     .single()
 
   if (!resume) {

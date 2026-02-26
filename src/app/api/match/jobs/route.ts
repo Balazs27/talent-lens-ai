@@ -13,14 +13,14 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  // 2. Fetch user's latest resume with status='ready'
+  // 2. Fetch user's active resume with status='ready'
+  //    Partial unique index guarantees at most 1 row; .single() is safe.
   const { data: resume, error: resumeError } = await supabase
     .from("resumes")
     .select("id")
     .eq("user_id", user.id)
     .eq("status", "ready")
-    .order("created_at", { ascending: false })
-    .limit(1)
+    .eq("is_active", true)
     .single()
 
   if (resumeError || !resume) {
