@@ -98,9 +98,15 @@ export default async function MatchesPage() {
       {!rpcError && jobMatches.length === 0 && (
         <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
           <p className="text-sm text-slate-500">
-            No matching jobs found. Check back after more job descriptions have
-            been posted.
+            No strong matches found yet. Try updating your resume with more
+            detail to improve your matches.
           </p>
+          <Link
+            href="/employee/resume"
+            className="mt-3 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
+          >
+            Update Resume
+          </Link>
         </div>
       )}
 

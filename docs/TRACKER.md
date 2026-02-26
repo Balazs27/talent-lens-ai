@@ -52,6 +52,14 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Missing skills displayed
 - [ ] Results look plausible on real data
 
+## Slice 3.1 — Match Quality & Gap Alignment
+
+- [x] Employee match RPC filters score > 0 (`match_jobs_for_resume` — HAVING clause added in 00014)
+- [x] Gap analysis RPC aligned with matching logic (`get_gap_analysis` — skill presence check fixed in 00014)
+- [x] Gap readiness % reflects required skill coverage (absent skills now always classified as missing)
+- [x] Negative matches no longer shown to employee
+- [x] Empty state UX improved for 0 matches ("No strong matches" + "Update Resume" link)
+
 ## Slice 4 — Matching (HR → Candidates)
 - [x] RPC: `match_candidates_for_job` exists and works
 - [x] Deterministic overlap scoring implemented
