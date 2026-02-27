@@ -226,6 +226,57 @@ Use deterministic heuristics/taxonomy.
 - Filtering: do NOT return clutter. Prefer `WHERE hybrid_score >= <floor>` (e.g. 0.35) or top-K.
 - Keep Slice C changes scoped to SQL/RPC + minimal API adjustments only if necessary.
 
+### 5.8 Hybrid Match Presentation - Slice 10
+
+### Tiering Model
+
+Hybrid score (0–1) is mapped to tiers:
+
+- Strong Match:   hybrid_score >= 0.60
+- Potential Match: 0.45 <= hybrid_score < 0.60
+- Weak Match:      0.35 <= hybrid_score < 0.45
+
+Weak matches are hidden by default in the employee UI.
+
+Tier is computed in the UI layer from hybrid_score.
+No database schema changes required for tier labels.
+
+### Match Percentage
+
+Display:
+matchPercent = Math.round(hybrid_score * 100)
+
+- Do NOT display raw deterministic scores.
+- Do NOT display negative scores.
+- hybrid_score is the single ranking metric in the UI.
+
+### Card Content Requirements
+
+Each match card must show:
+- Match % (prominent badge)
+- Required skills matched (x / total_required)
+- Missing required count
+- CTA: Analyze Gap / Apply
+
+Optional:
+- Semantic badge or tooltip explaining hybrid scoring.
+
+### Sorting
+
+Employee matches must:
+- Be sorted by hybrid_score DESC.
+- Respect weak match toggle state.
+
+### Toggle Behavior
+
+Default:
+- Show Strong + Potential matches only.
+
+If toggle "Show weak matches" is enabled:
+- Include Weak matches.
+
+Weak matches are NOT included in default results.
+
 ---
 
 ## 6) Dependency Policy

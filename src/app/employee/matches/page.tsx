@@ -1,19 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
-import { JobMatchCard } from "@/components/job-match-card"
-import { JobDescriptionModal } from "@/components/job-description-modal"
+import { MatchList } from "@/components/match-list"
+import type { JobMatch } from "@/components/match-list"
 import Link from "next/link"
-
-interface JobMatch {
-  job_id: string
-  title: string
-  company: string | null
-  matched_required: number
-  matched_preferred: number
-  matched_nice_to_have: number
-  missing_required: number
-  score: number
-}
 
 export default async function MatchesPage() {
   const supabase = await createClient()
@@ -51,7 +40,7 @@ export default async function MatchesPage() {
     )
   }
 
-  // Call deterministic matching RPC
+  // Call hybrid matching RPC (returns hybrid_score, deterministic_score_normalized, semantic_similarity)
   const { data: matches, error: rpcError } = await supabase.rpc(
     "match_jobs_for_resume",
     { p_resume_id: resume.id }
@@ -82,8 +71,8 @@ export default async function MatchesPage() {
       <div>
         <h1 className="text-2xl font-semibold border-l-2 border-blue-500 pl-3">Job Matches</h1>
         <p className="mt-1 text-sm text-slate-500 pl-3">
-          Jobs ranked by skill overlap with your resume. Higher scores indicate
-          better fit. Click a job card to view the full description.
+          Jobs ranked by skill and semantic fit with your resume. Click a job
+          card to view the full description.
         </p>
       </div>
 
@@ -95,44 +84,12 @@ export default async function MatchesPage() {
         </div>
       )}
 
-      {!rpcError && jobMatches.length === 0 && (
-        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
-          <p className="text-sm text-slate-500">
-            No strong matches found yet. Try updating your resume with more
-            detail to improve your matches.
-          </p>
-          <Link
-            href="/employee/resume"
-            className="mt-3 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
-          >
-            Update Resume
-          </Link>
-        </div>
-      )}
-
-      {jobMatches.length > 0 && (
-        <div className="space-y-3">
-          {jobMatches.map((match) => (
-            <JobDescriptionModal
-              key={match.job_id}
-              title={match.title}
-              company={match.company}
-              rawText={jobTexts[match.job_id] ?? null}
-            >
-              <JobMatchCard
-                title={match.title}
-                company={match.company}
-                score={match.score}
-                matched_required={match.matched_required}
-                matched_preferred={match.matched_preferred}
-                matched_nice_to_have={match.matched_nice_to_have}
-                missing_required={match.missing_required}
-                jobId={match.job_id}
-                resumeId={resume.id}
-              />
-            </JobDescriptionModal>
-          ))}
-        </div>
+      {!rpcError && (
+        <MatchList
+          matches={jobMatches}
+          resumeId={resume.id}
+          jobTexts={jobTexts}
+        />
       )}
     </div>
   )

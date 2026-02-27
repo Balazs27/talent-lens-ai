@@ -137,6 +137,22 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] DB: Add `deterministic_score_normalized` (0–1, clamped + normalized by max_possible_score)
 - [x] DB: Add `hybrid_score` (0.6 × det_norm + 0.4 × semantic; 0.0 fallback when embeddings absent)
 - [x] DB: Update filtering logic to use `hybrid_score >= 0.35`, ORDER BY hybrid_score DESC, LIMIT 20
-- [ ] Verification: SQL smoke tests show chef resume returns 0 matches / low hybrid_score for tech jobs
-- [ ] Verification: Tech resume ranks relevant tech jobs higher than unrelated jobs
+- [x] Verification: SQL smoke tests show chef resume returns 0 matches / low hybrid_score for tech jobs
+- [x] Verification: Tech resume ranks relevant tech jobs higher than unrelated jobs
 - [ ] Regression: HR matching RPC unchanged; gap analysis unchanged
+
+## Slice 10.1 — Thresholding & Tiers
+
+- [x] Define thresholds for Strong/Potential/Weak matches (Strong ≥0.60, Potential 0.45–0.60, Weak 0.35–0.45)
+- [x] Default view hides weak matches
+- [x] Optional toggle: “Show weak matches” (client state in `MatchList`)
+- [x] Tier computed in UI from `hybrid_score` — no DB change needed
+
+## Slice 10.2 — UI Update (Hybrid Match UX)
+
+- [x] Employee matches cards show Match % (`Math.round(hybrid_score * 100)`)
+- [x] Remove raw score display from UI (`score` prop removed from `JobMatchCard`)
+- [x] Show `X / Y required` matched count and missing required prominently
+- [x] Tier pill badge on each card (Strong/Potential/Weak)
+- [x] Sorting by `hybrid_score` (RPC already orders DESC)
+- [ ] Verify gap analysis readiness % is consistent with card counts
