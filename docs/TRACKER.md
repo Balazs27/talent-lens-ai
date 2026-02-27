@@ -156,3 +156,15 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Tier pill badge on each card (Strong/Potential/Weak)
 - [x] Sorting by `hybrid_score` (RPC already orders DESC)
 - [ ] Verify gap analysis readiness % is consistent with card counts
+
+## Slice 11 — Hybrid Candidate Matching (HR Side)
+
+- [x] DB: Update match_candidates_for_job to include semantic_similarity
+- [x] DB: Add deterministic_score_normalized
+- [x] DB: Add hybrid_score (same weights as employee)
+- [x] DB: Apply HR-specific hybrid threshold (>= 0.30)
+- [x] UI: Candidate cards show Match %
+- [x] UI: Hide weak candidates by default
+- [x] UI: Add "Show weak candidates" toggle
+- [ ] Verification: Ranking reflects hybrid score
+- [ ] Regression: Employee matching unaffected

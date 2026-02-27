@@ -277,6 +277,31 @@ If toggle "Show weak matches" is enabled:
 
 Weak matches are NOT included in default results.
 
+### 5.9 Hybrid Candidate Matching Slice 11
+
+HR uses the same hybrid scoring model as employee:
+
+hybrid_score =
+  0.6 * deterministic_score_normalized
++ 0.4 * semantic_similarity
+
+Weights are identical across roles.
+
+### HR Thresholds
+
+Tier mapping for HR:
+
+- Strong:    hybrid_score >= 0.60
+- Potential: 0.40 <= hybrid_score < 0.60
+- Weak:      0.30 <= hybrid_score < 0.40
+
+Below 0.30 → not shown.
+
+Weak candidates hidden by default.
+Toggle enables weak visibility.
+
+Tier is computed in UI layer from hybrid_score.
+
 ---
 
 ## 6) Dependency Policy

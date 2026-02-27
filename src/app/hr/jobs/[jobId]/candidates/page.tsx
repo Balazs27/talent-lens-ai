@@ -1,18 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
-import { CandidateMatchCard } from "@/components/candidate-match-card"
+import { CandidateList } from "@/components/candidate-list"
+import type { CandidateMatch } from "@/components/candidate-list"
 import Link from "next/link"
-
-interface CandidateMatch {
-  resume_id: string
-  user_id: string
-  full_name: string
-  matched_required: number
-  matched_preferred: number
-  matched_nice_to_have: number
-  missing_required: number
-  score: number
-}
 
 export default async function CandidatesPage({
   params,
@@ -62,7 +52,7 @@ export default async function CandidatesPage({
     )
   }
 
-  // Call deterministic matching RPC
+  // Call hybrid matching RPC (returns hybrid_score, deterministic_score_normalized, semantic_similarity)
   const { data: matches, error: rpcError } = await supabase.rpc(
     "match_candidates_for_job",
     { p_job_id: jobId }
@@ -86,7 +76,8 @@ export default async function CandidatesPage({
           <p className="mt-0.5 text-sm text-slate-500">{job.company}</p>
         )}
         <p className="mt-1 text-sm text-slate-500 pl-3">
-          Candidates ranked by skill overlap. Higher scores indicate better fit.
+          Candidates ranked by skill and semantic fit. Higher match % indicates
+          better overall fit.
         </p>
       </div>
 
@@ -98,30 +89,8 @@ export default async function CandidatesPage({
         </div>
       )}
 
-      {!rpcError && candidates.length === 0 && (
-        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
-          <p className="text-sm text-slate-500">
-            No candidates currently match this role.
-          </p>
-        </div>
-      )}
-
-      {candidates.length > 0 && (
-        <div className="space-y-3">
-          {candidates.map((c) => (
-            <CandidateMatchCard
-              key={c.resume_id}
-              full_name={c.full_name}
-              score={c.score}
-              matched_required={c.matched_required}
-              matched_preferred={c.matched_preferred}
-              matched_nice_to_have={c.matched_nice_to_have}
-              missing_required={c.missing_required}
-              jobId={jobId}
-              resumeId={c.resume_id}
-            />
-          ))}
-        </div>
+      {!rpcError && (
+        <CandidateList candidates={candidates} jobId={jobId} />
       )}
     </div>
   )
