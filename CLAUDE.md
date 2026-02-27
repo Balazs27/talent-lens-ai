@@ -207,6 +207,13 @@ Use deterministic heuristics/taxonomy.
 - Do not change matching/scoring in Slice 7 (embeddings only).
 - Add vector indexes (ivfflat) and keep queries limited with similarity thresholds in later slices.
 
+### 5.6 Semantic Match RPC Slice 8
+- Add SQL RPC(s) for semantic similarity using pgvector cosine distance.
+- Must filter out rows where embedding IS NULL.
+- Must limit results (default top 20).
+- Must not change deterministic scoring logic yet (hybrid comes in Slice C).
+- Similarity returned as: `similarity = 1 - (job.embedding <=> resume.embedding)` (cosine)
+
 ---
 
 ## 6) Dependency Policy

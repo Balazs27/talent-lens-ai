@@ -122,3 +122,11 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] API: Job ingestion generates + stores embedding (non-fatal step 8.5)
 - [x] Backfill: `scripts/backfill-embeddings.ts` — embed existing ready rows with NULL embedding
 - [x] Verification: SQL checks confirm embeddings populated for new ingests
+
+## Slice 8 — Semantic Match RPC
+
+- [x] DB: Add RPC `match_jobs_semantic(p_resume_id, p_limit)` returning job_id + similarity + basic job fields (`00016_semantic_match_rpc.sql`)
+- [x] DB: RPC filters out NULL embeddings (resume and job) and only returns active jobs
+- [x] DB: RPC ordered by vector distance (cosine) and limited (default top 20)
+- [ ] Verification: SQL smoke test for similarity on real resume/job data
+- [ ] Regression: deterministic matching still works unchanged
