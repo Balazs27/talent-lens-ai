@@ -166,5 +166,25 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] UI: Candidate cards show Match %
 - [x] UI: Hide weak candidates by default
 - [x] UI: Add "Show weak candidates" toggle
-- [ ] Verification: Ranking reflects hybrid score
-- [ ] Regression: Employee matching unaffected
+- [x] Verification: Ranking reflects hybrid score
+- [x] Regression: Employee matching unaffected
+
+## Slice 12A — Match Exploration UX
+
+### 12A.1 Filters
+- [x] Add filter bar (search, location, match %, sort) — `src/components/match-filter-bar.tsx`
+- [x] Client-side filtering logic — `src/lib/match-filters.ts`
+- [x] Sorting control (hybrid, semantic, deterministic)
+- [ ] Persist filter state in URL (optional)
+
+### 12A.2 Card Enhancements
+- [x] Add semantic % metric
+- [x] Add skill coverage %
+- [x] Add top 3 matched skills preview
+- [x] Add top 3 missing required preview (named pills replace generic count)
+- [x] Tier section headers styled
+- [x] Confirm no additional DB queries per card (all data from single RPC call)
+
+### HR Symmetry
+- [x] Mirror filters on HR candidate page
+- [x] Mirror enhanced card UI

@@ -11,6 +11,10 @@ interface CandidateMatchCardProps {
   matched_nice_to_have: number
   missing_required: number
   tier: "strong" | "potential" | "weak"
+  semanticPercent?: number
+  skillCoverage?: number
+  matchedSkillNames?: string[]
+  missingRequiredSkillNames?: string[]
   jobId?: string
   resumeId?: string
 }
@@ -35,6 +39,10 @@ export function CandidateMatchCard({
   matched_nice_to_have,
   missing_required,
   tier,
+  semanticPercent,
+  skillCoverage,
+  matchedSkillNames,
+  missingRequiredSkillNames,
   jobId,
   resumeId,
 }: CandidateMatchCardProps) {
@@ -63,7 +71,8 @@ export function CandidateMatchCard({
           </span>
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5 text-xs font-medium">
+        {/* Score badges */}
+        <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1.5 text-xs font-medium">
           <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100/50">
             {matched_required} / {totalRequired} required
           </span>
@@ -77,14 +86,61 @@ export function CandidateMatchCard({
               {matched_nice_to_have} nice-to-have
             </span>
           )}
+          {semanticPercent !== undefined && semanticPercent > 0 && (
+            <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+              {semanticPercent}% semantic
+            </span>
+          )}
+          {skillCoverage !== undefined && skillCoverage > 0 && (
+            <span className="text-violet-600 bg-violet-50 px-2 py-0.5 rounded-md border border-violet-100/50">
+              {skillCoverage}% coverage
+            </span>
+          )}
         </div>
 
-        {missing_required > 0 && (
+        {/* Matched skill pills */}
+        {matchedSkillNames && matchedSkillNames.length > 0 && (
+          <div className="mt-2 flex flex-wrap items-center gap-1">
+            {matchedSkillNames.slice(0, 3).map((name) => (
+              <span
+                key={name}
+                className="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full px-2 py-0.5"
+              >
+                {name}
+              </span>
+            ))}
+            {matchedSkillNames.length > 3 && (
+              <span className="text-[11px] text-slate-400">
+                +{matchedSkillNames.length - 3} more
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Missing required skill pills */}
+        {missingRequiredSkillNames && missingRequiredSkillNames.length > 0 ? (
+          <div className="mt-2 flex flex-wrap items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
+            {missingRequiredSkillNames.slice(0, 3).map((name) => (
+              <span
+                key={name}
+                className="text-[11px] bg-red-50 text-red-600 border border-red-100 rounded-full px-2 py-0.5"
+              >
+                {name}
+              </span>
+            ))}
+            {missingRequiredSkillNames.length > 3 && (
+              <span className="text-[11px] text-slate-400">
+                +{missingRequiredSkillNames.length - 3} missing
+              </span>
+            )}
+          </div>
+        ) : missing_required > 0 ? (
           <p className="mt-2 text-xs font-semibold text-red-500 flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
             {missing_required} required skill{missing_required > 1 ? "s" : ""} missing
           </p>
-        )}
+        ) : null}
       </div>
 
       {/* Actions */}

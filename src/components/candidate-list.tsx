@@ -1,7 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { CandidateMatchCard } from "@/components/candidate-match-card"
+import { MatchFilterBar } from "@/components/match-filter-bar"
+import {
+  DEFAULT_FILTERS,
+  filterCandidateMatches,
+  computeSkillCoverage,
+  type MatchFilterState,
+} from "@/lib/match-filters"
 
 export interface CandidateMatch {
   resume_id: string
@@ -11,6 +18,9 @@ export interface CandidateMatch {
   matched_preferred: number
   matched_nice_to_have: number
   missing_required: number
+  total_skills: number
+  matched_skill_names: string[]
+  missing_required_skill_names: string[]
   hybrid_score: number
   deterministic_score_normalized: number
   semantic_similarity: number
@@ -30,14 +40,20 @@ interface CandidateListProps {
 }
 
 export function CandidateList({ candidates, jobId }: CandidateListProps) {
+  const [filters, setFilters] = useState<MatchFilterState>(DEFAULT_FILTERS)
   const [showWeak, setShowWeak] = useState(false)
 
-  const strongAndPotential = candidates.filter(
+  const filtered = useMemo(
+    () => filterCandidateMatches(candidates, filters),
+    [candidates, filters]
+  )
+
+  const strongAndPotential = filtered.filter(
     (c) => getTier(c.hybrid_score) !== "weak"
   )
-  const weak = candidates.filter((c) => getTier(c.hybrid_score) === "weak")
+  const weak = filtered.filter((c) => getTier(c.hybrid_score) === "weak")
 
-  if (strongAndPotential.length === 0) {
+  if (candidates.length === 0) {
     return (
       <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
         <p className="text-sm text-slate-500">
@@ -49,6 +65,20 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
 
   return (
     <div className="space-y-3">
+      <MatchFilterBar
+        filters={filters}
+        onFiltersChange={setFilters}
+        searchPlaceholder="Search candidates..."
+        filteredCount={filtered.length}
+        totalCount={candidates.length}
+      />
+
+      {strongAndPotential.length === 0 && weak.length === 0 && (
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">No candidates match those filters.</p>
+        </div>
+      )}
+
       {/* Strong + Potential candidates */}
       {strongAndPotential.map((c) => (
         <CandidateMatchCard
@@ -60,6 +90,15 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
           matched_nice_to_have={c.matched_nice_to_have}
           missing_required={c.missing_required}
           tier={getTier(c.hybrid_score)}
+          semanticPercent={Math.round(c.semantic_similarity * 100)}
+          skillCoverage={computeSkillCoverage(
+            c.matched_required,
+            c.matched_preferred,
+            c.matched_nice_to_have,
+            c.total_skills
+          )}
+          matchedSkillNames={c.matched_skill_names}
+          missingRequiredSkillNames={c.missing_required_skill_names}
           jobId={jobId}
           resumeId={c.resume_id}
         />
@@ -105,6 +144,15 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
               matched_nice_to_have={c.matched_nice_to_have}
               missing_required={c.missing_required}
               tier="weak"
+              semanticPercent={Math.round(c.semantic_similarity * 100)}
+              skillCoverage={computeSkillCoverage(
+                c.matched_required,
+                c.matched_preferred,
+                c.matched_nice_to_have,
+                c.total_skills
+              )}
+              matchedSkillNames={c.matched_skill_names}
+              missingRequiredSkillNames={c.missing_required_skill_names}
               jobId={jobId}
               resumeId={c.resume_id}
             />

@@ -1,18 +1,31 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { JobMatchCard } from "@/components/job-match-card"
 import { JobDescriptionModal } from "@/components/job-description-modal"
+import { MatchFilterBar } from "@/components/match-filter-bar"
+import {
+  DEFAULT_FILTERS,
+  filterJobMatches,
+  extractLocations,
+  computeSkillCoverage,
+  type MatchFilterState,
+} from "@/lib/match-filters"
 import Link from "next/link"
 
 export interface JobMatch {
   job_id: string
   title: string
   company: string | null
+  location: string | null
+  seniority: string | null
   matched_required: number
   matched_preferred: number
   matched_nice_to_have: number
   missing_required: number
+  total_skills: number
+  matched_skill_names: string[]
+  missing_required_skill_names: string[]
   hybrid_score: number
   deterministic_score_normalized: number
   semantic_similarity: number
@@ -33,14 +46,16 @@ interface MatchListProps {
 }
 
 export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
+  const [filters, setFilters] = useState<MatchFilterState>(DEFAULT_FILTERS)
   const [showWeak, setShowWeak] = useState(false)
 
-  const strongAndPotential = matches.filter(
-    (m) => getTier(m.hybrid_score) !== "weak"
-  )
-  const weak = matches.filter((m) => getTier(m.hybrid_score) === "weak")
+  const locations = useMemo(() => extractLocations(matches), [matches])
+  const filtered = useMemo(() => filterJobMatches(matches, filters), [matches, filters])
 
-  if (strongAndPotential.length === 0) {
+  const strongAndPotential = filtered.filter((m) => getTier(m.hybrid_score) !== "weak")
+  const weak = filtered.filter((m) => getTier(m.hybrid_score) === "weak")
+
+  if (matches.length === 0) {
     return (
       <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
         <p className="text-sm text-slate-500">
@@ -59,6 +74,21 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
 
   return (
     <div className="space-y-3">
+      <MatchFilterBar
+        filters={filters}
+        onFiltersChange={setFilters}
+        searchPlaceholder="Search jobs..."
+        locations={locations.length > 0 ? locations : undefined}
+        filteredCount={filtered.length}
+        totalCount={matches.length}
+      />
+
+      {strongAndPotential.length === 0 && weak.length === 0 && (
+        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
+          <p className="text-sm text-slate-500">No matches for those filters.</p>
+        </div>
+      )}
+
       {/* Strong + Potential matches */}
       {strongAndPotential.map((match) => (
         <JobDescriptionModal
@@ -70,12 +100,23 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
           <JobMatchCard
             title={match.title}
             company={match.company}
+            location={match.location}
+            seniority={match.seniority}
             matchPercent={Math.round(match.hybrid_score * 100)}
             matched_required={match.matched_required}
             matched_preferred={match.matched_preferred}
             matched_nice_to_have={match.matched_nice_to_have}
             missing_required={match.missing_required}
             tier={getTier(match.hybrid_score)}
+            semanticPercent={Math.round(match.semantic_similarity * 100)}
+            skillCoverage={computeSkillCoverage(
+              match.matched_required,
+              match.matched_preferred,
+              match.matched_nice_to_have,
+              match.total_skills
+            )}
+            matchedSkillNames={match.matched_skill_names}
+            missingRequiredSkillNames={match.missing_required_skill_names}
             jobId={match.job_id}
             resumeId={resumeId}
           />
@@ -122,12 +163,23 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
               <JobMatchCard
                 title={match.title}
                 company={match.company}
+                location={match.location}
+                seniority={match.seniority}
                 matchPercent={Math.round(match.hybrid_score * 100)}
                 matched_required={match.matched_required}
                 matched_preferred={match.matched_preferred}
                 matched_nice_to_have={match.matched_nice_to_have}
                 missing_required={match.missing_required}
                 tier="weak"
+                semanticPercent={Math.round(match.semantic_similarity * 100)}
+                skillCoverage={computeSkillCoverage(
+                  match.matched_required,
+                  match.matched_preferred,
+                  match.matched_nice_to_have,
+                  match.total_skills
+                )}
+                matchedSkillNames={match.matched_skill_names}
+                missingRequiredSkillNames={match.missing_required_skill_names}
                 jobId={match.job_id}
                 resumeId={resumeId}
               />
