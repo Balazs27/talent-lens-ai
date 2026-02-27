@@ -458,9 +458,9 @@ If commands change, update README.
 
 ---
 
-### 12) — Match Exploration UX Layer
+### 12A) — Match Exploration UX Layer
 
-### 12.1 Filters
+### 12A.1 Filters
 
 - Client-side filtering first
 - No new RPC unless necessary
@@ -470,7 +470,7 @@ If commands change, update README.
   - Potential 0.50–0.69
   - Weak 0.30–0.49
 
-### 12.2 Card Enhancements
+### 12A.2 Card Enhancements
 
 Cards must show:
 - Match % (hybrid_score * 100)
@@ -483,11 +483,42 @@ Optional expandable section:
 - Top matched skills (max 3)
 - Top missing required skills (max 3)
 
-### 12.3 Performance Rules
+### 12A.3 Performance Rules
 
 - No extra DB calls per card
 - No N+1 queries
 - Filters operate on already-fetched result set
+
+---
+
+## 12B — LLM Match Explanation Layer
+
+Purpose:
+Provide grounded, structured AI explanations for why a match is strong/weak.
+
+Strict Rules:
+- LLM must receive deterministic + semantic signals.
+- No hallucinated skills.
+- Output must be structured JSON.
+- Always cache explanations.
+- Never expose raw prompt in response.
+
+API:
+POST /api/explain/match
+
+Inputs:
+- job_id
+- resume_id
+- mode
+
+Output:
+{
+  reasons: string[3],
+  gaps: string[3],
+  improvements: string[2]
+}
+
+Cache TTL: 24h
 
 ---
 

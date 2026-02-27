@@ -188,3 +188,25 @@ Use this checklist to track progress. Agents must update it as work is completed
 ### HR Symmetry
 - [x] Mirror filters on HR candidate page
 - [x] Mirror enhanced card UI
+
+## Slice 12B — LLM Explanation Layer
+
+### Backend
+- [x] Create /api/explain/match route (`src/app/api/explain/match/route.ts`)
+- [x] Fetch deterministic + hybrid signals (`get_match_scores` RPC + `get_gap_analysis` RPC in parallel)
+- [x] Construct grounded prompt (`src/lib/openai/prompts/explain-match.ts`)
+- [x] Enforce structured JSON output (Zod schema + forced function calling)
+- [x] Implement explanation cache table (`match_explanation_cache` — migration 00020)
+- [x] Cache TTL 24h
+- [x] Add rate limiting (reuses `src/lib/rate-limit.ts`)
+
+### Frontend
+- [x] Add "Explain" button (`src/components/match-explanation-panel.tsx`)
+- [x] Loading state (spinner + "Explaining…" label)
+- [x] Expandable explanation panel (reasons / gaps / improvements sections)
+- [x] Error fallback UI ("Explanation unavailable" on null result)
+
+### Safety
+- [x] No hallucinated skill names (skill names from `get_gap_analysis` RPC, server-side only)
+- [x] No raw prompt leakage (only structured signals sent to LLM; prompt not exposed to client)
+- [x] Employee + HR symmetry

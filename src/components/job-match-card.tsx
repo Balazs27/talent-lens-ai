@@ -2,6 +2,7 @@
 
 import { DemoToastButton } from "@/components/demo-toast-button"
 import { GapAnalysisPanel } from "@/components/gap-analysis-panel"
+import { MatchExplanationPanel } from "@/components/match-explanation-panel"
 
 interface JobMatchCardProps {
   title: string
@@ -174,6 +175,11 @@ export function JobMatchCard({
             toastMessage="Application opened (demo)"
           />
           <GapAnalysisPanel
+            jobId={jobId}
+            resumeId={resumeId}
+            mode="employee"
+          />
+          <MatchExplanationPanel
             jobId={jobId}
             resumeId={resumeId}
             mode="employee"
