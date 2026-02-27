@@ -210,3 +210,24 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] No hallucinated skill names (skill names from `get_gap_analysis` RPC, server-side only)
 - [x] No raw prompt leakage (only structured signals sent to LLM; prompt not exposed to client)
 - [x] Employee + HR symmetry
+
+## Slice 12C — Advanced Gap Intelligence
+
+### Backend
+- [x] New route `/api/analyze/gap-intelligence` (`src/app/api/analyze/gap-intelligence/route.ts`)
+- [x] Add structured skill_plan output (`src/lib/types/gap-intelligence.ts`)
+- [x] Add resume_optimization suggestions (prompt + schema)
+- [x] Add impact_projection estimation (prompt + schema)
+- [x] Add extended cache table (`gap_intelligence_cache` — migration 00021)
+
+### Frontend
+- [x] "Deep Analysis" button in gap panel (appears after gap analysis loads, only when missing skills exist)
+- [x] Priority roadmap UI (`SkillPlanRoadmap` + `SkillPlanCard` in gap-analysis-panel.tsx)
+- [x] Time estimates display (per-skill badge on each SkillPlanCard)
+- [x] Projected impact section (`ImpactProjectionCard`)
+- [x] Resume optimization list (`ResumeOptimizationList`)
+
+### Safety
+- [x] Validate JSON schema (Zod `gapIntelligenceSchema` in `gap-intelligence-analyzer.ts`)
+- [x] Prevent hallucinated skills (post-parse hallucination guard validates every skill_plan[].skill against input arrays)
+- [x] Handle LLM failure gracefully (non-fatal: returns `intelligence: null`, retry once on parse/validation failure)

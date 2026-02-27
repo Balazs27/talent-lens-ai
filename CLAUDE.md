@@ -522,6 +522,45 @@ Cache TTL: 24h
 
 ---
 
+## 12C — Advanced Gap Intelligence
+
+Purpose:
+Transform gap analysis into structured, actionable career guidance.
+
+Enhancements:
+- Skill-level action suggestions
+- Demonstration gap detection
+- Learning time estimates
+- Resume bullet rewrite suggestions
+- Priority ranking of skill gaps
+
+Rules:
+- Must remain grounded in deterministic signals.
+- Must not hallucinate skills not present in job_skills.
+- Must not generate unrealistic timelines.
+- Must remain structured JSON.
+
+Gap intelligence output shape:
+
+{
+  skill_plan: [
+    {
+      skill: string,
+      priority: number,
+      reason: string,
+      time_estimate: string,
+      suggested_actions: string[]
+    }
+  ],
+  resume_optimization: string[],
+  impact_projection: {
+    estimated_score_gain: string,
+    explanation: string
+  }
+}
+
+---
+
 ## 13) If you’re unsure (Fallback behavior)
 
 When uncertain:
