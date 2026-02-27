@@ -6,6 +6,7 @@ import {
   extractSkillsFromResume,
   SchemaValidationError,
 } from "@/lib/ingestion/resume-parser"
+import { generateEmbedding } from "@/lib/openai/embeddings"
 import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
 import type { ResumeExtraction, ExtractedSkill } from "@/lib/types/resume"
 
@@ -134,6 +135,20 @@ export async function POST(request: Request) {
     .from("gap_analysis_cache")
     .delete()
     .eq("resume_id", resumeId)
+
+  // 8.5. Generate and store embedding (non-fatal — resume becomes ready regardless)
+  try {
+    const embedding = await generateEmbedding(resumeText)
+    await supabase
+      .from("resumes")
+      .update({ embedding })
+      .eq("id", resumeId)
+  } catch (err) {
+    console.error(
+      "[ingest/resume] Embedding failed:",
+      err instanceof Error ? err.message : err
+    )
+  }
 
   // 9. Update resume: parsed = validated JSON, status = ready
   const { error: updateError } = await supabase

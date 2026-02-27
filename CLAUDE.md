@@ -194,6 +194,19 @@ Do not use LLMs for:
 - string normalization
 Use deterministic heuristics/taxonomy.
 
+### 5.5 Embeddings (V2 Matching Engine)
+
+- Embedding model: `text-embedding-3-small` (1536 dims).
+- Store embeddings in Postgres pgvector:
+  - `resumes.embedding vector(1536)`
+  - `jobs.embedding vector(1536)`
+- Embedding input is the **full raw text** (resume `raw_text`, job `raw_text` / `description`), optionally lightly normalized.
+- Embed on ingestion:
+  - Resume ingestion sets `resumes.embedding`
+  - Job ingestion sets `jobs.embedding`
+- Do not change matching/scoring in Slice 7 (embeddings only).
+- Add vector indexes (ivfflat) and keep queries limited with similarity thresholds in later slices.
+
 ---
 
 ## 6) Dependency Policy

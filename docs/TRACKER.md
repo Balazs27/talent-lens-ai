@@ -19,7 +19,7 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Skill normalization implemented (taxonomy lookup + alias mapping)
 - [x] DB: `resumes` row written + status updates
 - [x] DB: `resume_skills` written
-- [ ] (Optional) `embeddings` written
+- [x] (Optional) `embeddings` written
 - [x] Errors handled properly (400/401/500)
 - [x] Tested on 3 real resumes
 
@@ -41,7 +41,7 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] LLM extraction prompt + schema implemented
 - [x] DB: `jobs` row written + status updates
 - [x] DB: `job_skills` written
-- [ ] (Optional) `embeddings` written
+- [x] (Optional) `embeddings` written
 - [x] Tested on 3 real job descriptions
 
 ## Slice 3 — Matching (Employee → Jobs)
@@ -112,3 +112,13 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] README is accurate (setup + env vars)
 - [x] Deployed to Vercel
 - [x] Demo script prepared (key features to show, talking points)
+
+## Slice 7 — Embedding Infrastructure
+
+- [x] DB: Add `resumes.embedding vector(1536)` (`00015_embeddings.sql`)
+- [x] DB: Add `jobs.embedding vector(1536)` (`00015_embeddings.sql`)
+- [x] DB: Add ivfflat indexes for both embeddings (cosine ops) + ANALYZE
+- [x] API: Resume ingestion generates + stores embedding (non-fatal step 8.5)
+- [x] API: Job ingestion generates + stores embedding (non-fatal step 8.5)
+- [x] Backfill: `scripts/backfill-embeddings.ts` — embed existing ready rows with NULL embedding
+- [x] Verification: SQL checks confirm embeddings populated for new ingests

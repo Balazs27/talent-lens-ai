@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { rateLimit } from "@/lib/rate-limit"
 import { extractSkillsFromJD } from "@/lib/ingestion/jd-parser"
+import { generateEmbedding } from "@/lib/openai/embeddings"
 import { SchemaValidationError } from "@/lib/ingestion/resume-parser"
 import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
 import type { JobExtraction, ExtractedJobSkill } from "@/lib/types/job"
@@ -143,6 +144,20 @@ export async function POST(request: Request) {
         { status: 500 }
       )
     }
+  }
+
+  // 8.5. Generate and store embedding (non-fatal — job becomes ready regardless)
+  try {
+    const embedding = await generateEmbedding(jdText)
+    await supabase
+      .from("jobs")
+      .update({ embedding })
+      .eq("id", jobId)
+  } catch (err) {
+    console.error(
+      "[ingest/job] Embedding failed:",
+      err instanceof Error ? err.message : err
+    )
   }
 
   // 9. Update job: parsed, seniority, title, company, location, status = ready
