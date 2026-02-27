@@ -194,7 +194,7 @@ Do not use LLMs for:
 - string normalization
 Use deterministic heuristics/taxonomy.
 
-### 5.5 Embeddings (V2 Matching Engine)
+### 5.5 Embeddings (V2 Matching Engine) - Slice 7
 
 - Embedding model: `text-embedding-3-small` (1536 dims).
 - Store embeddings in Postgres pgvector:
@@ -207,12 +207,24 @@ Use deterministic heuristics/taxonomy.
 - Do not change matching/scoring in Slice 7 (embeddings only).
 - Add vector indexes (ivfflat) and keep queries limited with similarity thresholds in later slices.
 
-### 5.6 Semantic Match RPC Slice 8
+### 5.6 Semantic Match RPC - Slice 8
 - Add SQL RPC(s) for semantic similarity using pgvector cosine distance.
 - Must filter out rows where embedding IS NULL.
 - Must limit results (default top 20).
 - Must not change deterministic scoring logic yet (hybrid comes in Slice C).
 - Similarity returned as: `similarity = 1 - (job.embedding <=> resume.embedding)` (cosine)
+
+### 5.7 Hybrid Matching - Slice 9
+
+- Deterministic overlap remains the explainability layer (matched/missing required/preferred/nice_to_have).
+- Compute `semantic_similarity = 1 - (job.embedding <=> resume.embedding)` (cosine).
+- Compute `deterministic_score_normalized` on a 0–1 scale:
+  - Clamp negative raw deterministic score to 0 before normalization.
+  - Normalize by a computed max possible score for that job’s requirements.
+- Compute `hybrid_score` as a weighted blend:
+  - Default weights: deterministic 0.6, semantic 0.4 (tunable constants).
+- Filtering: do NOT return clutter. Prefer `WHERE hybrid_score >= <floor>` (e.g. 0.35) or top-K.
+- Keep Slice C changes scoped to SQL/RPC + minimal API adjustments only if necessary.
 
 ---
 

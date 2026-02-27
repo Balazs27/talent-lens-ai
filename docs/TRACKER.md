@@ -130,3 +130,13 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] DB: RPC ordered by vector distance (cosine) and limited (default top 20)
 - [ ] Verification: SQL smoke test for similarity on real resume/job data
 - [ ] Regression: deterministic matching still works unchanged
+
+## Slice 9 — Hybrid Scoring
+
+- [x] DB: Update `match_jobs_for_resume` to include `semantic_similarity` (`00017_hybrid_scoring.sql`)
+- [x] DB: Add `deterministic_score_normalized` (0–1, clamped + normalized by max_possible_score)
+- [x] DB: Add `hybrid_score` (0.6 × det_norm + 0.4 × semantic; 0.0 fallback when embeddings absent)
+- [x] DB: Update filtering logic to use `hybrid_score >= 0.35`, ORDER BY hybrid_score DESC, LIMIT 20
+- [ ] Verification: SQL smoke tests show chef resume returns 0 matches / low hybrid_score for tech jobs
+- [ ] Verification: Tech resume ranks relevant tech jobs higher than unrelated jobs
+- [ ] Regression: HR matching RPC unchanged; gap analysis unchanged
