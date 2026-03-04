@@ -231,3 +231,34 @@ Use this checklist to track progress. Agents must update it as work is completed
 - [x] Validate JSON schema (Zod `gapIntelligenceSchema` in `gap-intelligence-analyzer.ts`)
 - [x] Prevent hallucinated skills (post-parse hallucination guard validates every skill_plan[].skill against input arrays)
 - [x] Handle LLM failure gracefully (non-fatal: returns `intelligence: null`, retry once on parse/validation failure)
+
+## Slice 12D — Resume PDF Upload
+
+### Backend
+- [x] Add `pdf-parse` dependency
+- [x] Create PDF text extractor (`src/lib/ingestion/pdf-text-extractor.ts`)
+- [x] Extract shared pipeline logic (`src/lib/ingestion/resume-ingest-pipeline.ts`)
+- [x] Refactor existing text route to use shared pipeline (thin handler)
+- [x] Create PDF upload route (`/api/ingest/resume/pdf`)
+- [x] Security: file size limit (5MB), PDF-only MIME validation, magic bytes check (`%PDF`)
+- [x] Error handling: empty PDF, extraction failure, auth, encrypted/corrupt PDF
+
+### Frontend
+- [x] Add paste/upload toggle to `ResumeUpload` component (Paste Text | Upload PDF tabs)
+- [x] PDF file input with `.pdf` filter + click-to-select drop zone UI
+- [x] Client-side file size validation (5MB)
+- [x] Loading state for PDF upload ("Processing PDF...")
+- [x] Error display for PDF-specific failures (type, size, extraction)
+- [x] Same result UI for both modes (matched skills, View Matches CTA)
+
+### Documentation
+- [x] Create `docs/ARCHITECTURE_RESUME_UPLOAD.md`
+- [x] Update `docs/TRACKER.md` with Slice 12D
+
+### Verification
+- [x] `npm run build` passes
+- [x] Test: paste text still works (regression)
+- [x] Test: upload valid PDF → skills extracted
+- [ ] Test: upload >5MB PDF → rejected
+- [x] Test: upload non-PDF → rejected
+- [ ] Test: upload image-only PDF → graceful error
