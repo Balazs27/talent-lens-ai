@@ -21,7 +21,7 @@ export function HeroSection() {
           </h1>
           
           <p className="mt-8 max-w-lg text-lg sm:text-xl text-slate-500 leading-relaxed font-medium">
-            Upload resumes. Extract skills. Uncover the perfect internal matches instantly with our hybrid semantic search engine.
+            Upload a resume. Extract skills automatically. Discover your best job matches instantly with hybrid AI matching.
           </p>
           
           <div className="mt-10 flex items-center gap-4">
@@ -31,12 +31,12 @@ export function HeroSection() {
             >
               Get Started
             </Link>
-            <Link
-              href="/login"
+            <a
+              href="#demo"
               className="inline-flex h-14 items-center justify-center rounded-full bg-white px-8 text-base font-semibold text-slate-700 transition-all hover:-translate-y-1 hover:bg-slate-50 shadow-sm border border-slate-200"
             >
-              Sign In
-            </Link>
+              Watch Demo
+            </a>
           </div>
         </div>
 

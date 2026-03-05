@@ -10,14 +10,23 @@ export function NavBar() {
           </div>
           TalentLens
         </Link>
-        <nav>
-          <Link
-            href="/login"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-4 py-2"
-          >
-            Sign In
-          </Link>
+        <nav className="hidden md:flex items-center gap-1">
+          {["Features", "How it Works", "Pricing", "Support"].map((item) => (
+            <a
+              key={item}
+              href="#"
+              className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors px-4 py-2 rounded-lg hover:bg-slate-100/60"
+            >
+              {item}
+            </a>
+          ))}
         </nav>
+        <Link
+          href="/login"
+          className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-4 py-2"
+        >
+          Sign In
+        </Link>
       </div>
     </header>
   );
