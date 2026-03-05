@@ -47,7 +47,7 @@ export function FeatureGridSection() {
           {features.map((f, i) => (
             <motion.div
               key={i}
-              className="card-glow relative bg-white rounded-[2rem] p-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-slate-200/60"
+              className="card-glow group relative bg-white rounded-[2rem] p-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-slate-200/60"
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -61,8 +61,8 @@ export function FeatureGridSection() {
               >
                 {f.icon}
               </motion.div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">{f.title}</h3>
-              <p className="text-slate-500 leading-relaxed text-lg font-medium">{f.desc}</p>
+              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-white mb-4 tracking-tight transition-colors duration-300">{f.title}</h3>
+              <p className="text-slate-500 group-hover:text-white/80 leading-relaxed text-lg font-medium transition-colors duration-300">{f.desc}</p>
             </motion.div>
           ))}
         </div>
