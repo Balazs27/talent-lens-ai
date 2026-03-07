@@ -5,7 +5,7 @@ import {
   SchemaValidationError,
 } from "@/lib/ingestion/resume-parser"
 import { generateEmbedding } from "@/lib/openai/embeddings"
-import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
+import { findOrCreateSkills, type NormalizationResult } from "@/lib/ingestion/skill-normalizer"
 import type { ResumeExtraction, ExtractedSkill } from "@/lib/types/resume"
 
 export interface IngestResult {
@@ -40,6 +40,9 @@ export async function ingestResumeText(
   supabase: SupabaseClient,
   resumeText: string
 ): Promise<IngestResult> {
+  // Admin client needed for skills auto-creation (no INSERT RLS on skills table)
+  const admin = createAdminClient()
+
   // Step 1 — Atomically deactivate old resumes + insert new active resume
   const { data: resumeId, error: insertError } = await supabase.rpc(
     "insert_active_resume",
@@ -73,11 +76,11 @@ export async function ingestResumeText(
     )
   }
 
-  // Step 3 — Normalize extracted skill names against the skills taxonomy
+  // Step 3 — Normalize + auto-create skills against the taxonomy
   const extractedNames = extraction.skills.map((s) => s.name)
-  let normalizedSkills
+  let normalizedSkills: NormalizationResult[]
   try {
-    normalizedSkills = await normalizeSkills(supabase, extractedNames)
+    normalizedSkills = await findOrCreateSkills(admin, supabase, extractedNames)
   } catch {
     await supabase.from("resumes").update({ status: "error" }).eq("id", resumeId)
     throw new IngestPipelineError(
@@ -122,7 +125,6 @@ export async function ingestResumeText(
   }
 
   // Step 5 — Invalidate gap analysis cache for this user (admin client — no DELETE policy)
-  const admin = createAdminClient()
   await admin.from("gap_analysis_cache").delete().eq("resume_id", resumeId)
 
   // Step 6 — Generate and store embedding (non-fatal — resume becomes ready regardless)

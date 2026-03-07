@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 import { rateLimit } from "@/lib/rate-limit"
 import { extractSkillsFromJD } from "@/lib/ingestion/jd-parser"
 import { generateEmbedding } from "@/lib/openai/embeddings"
 import { SchemaValidationError } from "@/lib/ingestion/resume-parser"
-import { normalizeSkills } from "@/lib/ingestion/skill-normalizer"
+import { findOrCreateSkills, type NormalizationResult } from "@/lib/ingestion/skill-normalizer"
 import type { JobExtraction, ExtractedJobSkill } from "@/lib/types/job"
 
 export async function POST(request: Request) {
@@ -12,6 +13,8 @@ export async function POST(request: Request) {
   if (rateLimitResponse) return rateLimitResponse
 
   const supabase = await createClient()
+  // Admin client needed for skills auto-creation (no INSERT RLS on skills table)
+  const admin = createAdminClient()
 
   // 1. Auth check
   const {
@@ -97,11 +100,11 @@ export async function POST(request: Request) {
     )
   }
 
-  // 6. Normalize skills against taxonomy
+  // 6. Normalize + auto-create skills against the taxonomy
   const extractedNames = extraction.skills.map((s) => s.name)
-  let normalizedSkills
+  let normalizedSkills: NormalizationResult[]
   try {
-    normalizedSkills = await normalizeSkills(supabase, extractedNames)
+    normalizedSkills = await findOrCreateSkills(admin, supabase, extractedNames)
   } catch {
     await supabase
       .from("jobs")
