@@ -57,14 +57,19 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
 
   if (matches.length === 0) {
     return (
-      <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
-        <p className="text-sm text-slate-500">
-          No strong matches found yet. Try improving your resume with more
-          detail to improve your matches.
+      <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-10 text-center">
+        <div className="mx-auto w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-4">
+          <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium text-slate-700">No job matches found</p>
+        <p className="mt-1 text-xs text-slate-400 max-w-xs mx-auto">
+          Add more detail to your resume to improve skill matching — the more context, the better your results.
         </p>
         <Link
           href="/employee/resume"
-          className="mt-3 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
+          className="mt-4 inline-block rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-blue-700 shadow-[0_0_20px_-5px_rgba(37,99,235,0.3)] hover:shadow-[0_0_24px_-5px_rgba(37,99,235,0.4)]"
         >
           Update Resume
         </Link>
@@ -90,9 +95,13 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
       )}
 
       {/* Strong + Potential matches */}
-      {strongAndPotential.map((match) => (
-        <JobDescriptionModal
+      {strongAndPotential.map((match, i) => (
+        <div
           key={match.job_id}
+          className="animate-[fadeUp_0.4s_ease-out_both]"
+          style={{ animationDelay: `${Math.min(i * 60, 240)}ms` }}
+        >
+        <JobDescriptionModal
           title={match.title}
           company={match.company}
           rawText={jobTexts[match.job_id] ?? null}
@@ -123,6 +132,7 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
             resumeId={resumeId}
           />
         </JobDescriptionModal>
+        </div>
       ))}
 
       {/* Weak matches toggle */}

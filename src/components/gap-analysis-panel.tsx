@@ -100,7 +100,7 @@ export function GapAnalysisPanel({
       </div>
 
       {isOpen && cachedResult && (
-        <div className="mt-3 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-4 space-y-4">
+        <div className="mt-3 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-4 space-y-4 animate-[fadeUp_0.25s_ease-out_both]">
           <DeterministicSection
             data={cachedResult.deterministic}
             mode={mode}

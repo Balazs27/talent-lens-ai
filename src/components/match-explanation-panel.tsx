@@ -145,7 +145,7 @@ function ExplanationPanel({
       </button>
 
       {open && (
-        <div className="px-3 pb-3 border-t border-slate-100 space-y-2.5">
+        <div className="px-3 pb-3 border-t border-slate-100 space-y-2.5 animate-[slideDown_0.2s_ease-out_both]">
           <Section label="Why it matches" icon="✓" iconColor="text-emerald-500" items={explanation.reasons} />
           <Section label="Gaps" icon="!" iconColor="text-amber-500" items={explanation.gaps} />
           <Section label="Improve" icon="→" iconColor="text-blue-500" items={explanation.improvements} />

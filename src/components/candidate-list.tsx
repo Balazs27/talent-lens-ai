@@ -55,9 +55,15 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
 
   if (candidates.length === 0) {
     return (
-      <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
-        <p className="text-sm text-slate-500">
-          No strong candidates found for this role.
+      <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-10 text-center">
+        <div className="mx-auto w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-4">
+          <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium text-slate-700">No candidates matched yet</p>
+        <p className="mt-1 text-xs text-slate-400 max-w-xs mx-auto">
+          Candidates appear once employees upload resumes and their profiles are matched against this role.
         </p>
       </div>
     )
@@ -80,9 +86,13 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
       )}
 
       {/* Strong + Potential candidates */}
-      {strongAndPotential.map((c) => (
-        <CandidateMatchCard
+      {strongAndPotential.map((c, i) => (
+        <div
           key={c.resume_id}
+          className="animate-[fadeUp_0.4s_ease-out_both]"
+          style={{ animationDelay: `${Math.min(i * 60, 240)}ms` }}
+        >
+        <CandidateMatchCard
           full_name={c.full_name}
           matchPercent={Math.round(c.hybrid_score * 100)}
           matched_required={c.matched_required}
@@ -102,6 +112,7 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
           jobId={jobId}
           resumeId={c.resume_id}
         />
+        </div>
       ))}
 
       {/* Weak candidates toggle */}

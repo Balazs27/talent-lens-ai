@@ -55,7 +55,7 @@ export function JobDescriptionModal({
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-[fadeIn_0.18s_ease-out]"
           onClick={close}
         >
           {/* Backdrop */}
@@ -63,7 +63,7 @@ export function JobDescriptionModal({
 
           {/* Modal */}
           <div
-            className="relative w-full max-w-2xl max-h-[80vh] rounded-xl border border-slate-200 bg-white shadow-xl flex flex-col"
+            className="relative w-full max-w-2xl max-h-[80vh] rounded-xl border border-slate-200 bg-white shadow-xl flex flex-col animate-[scaleIn_0.22s_ease-out]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
