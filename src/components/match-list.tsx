@@ -96,6 +96,8 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
           title={match.title}
           company={match.company}
           rawText={jobTexts[match.job_id] ?? null}
+          matchedSkillNames={match.matched_skill_names}
+          missingRequiredSkillNames={match.missing_required_skill_names}
         >
           <JobMatchCard
             title={match.title}
@@ -159,6 +161,8 @@ export function MatchList({ matches, resumeId, jobTexts }: MatchListProps) {
               title={match.title}
               company={match.company}
               rawText={jobTexts[match.job_id] ?? null}
+              matchedSkillNames={match.matched_skill_names}
+              missingRequiredSkillNames={match.missing_required_skill_names}
             >
               <JobMatchCard
                 title={match.title}
