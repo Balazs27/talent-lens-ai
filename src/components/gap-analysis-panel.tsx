@@ -11,6 +11,10 @@ import type {
 } from "@/lib/types/gap-analysis"
 import type { GapIntelligenceResponse, GapIntelligence, SkillPlanItem } from "@/lib/types/gap-intelligence"
 
+// ─── Feature Flags ────────────────────────────────────────────
+// Set to true to re-enable the Deep Analysis (Gap Intelligence) panel
+const SHOW_DEEP_ANALYSIS = false
+
 interface GapAnalysisPanelProps {
   jobId: string
   resumeId: string
@@ -24,10 +28,25 @@ export function GapAnalysisPanel({
 }: GapAnalysisPanelProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<GapAnalysisResponse | null>(null)
+  // cachedResult persists across open/close cycles so reopening is instant
+  const [cachedResult, setCachedResult] = useState<GapAnalysisResponse | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
 
-  async function handleAnalyze() {
+  async function handleToggle() {
+    // If panel is open, collapse it
+    if (isOpen) {
+      setIsOpen(false)
+      return
+    }
+
+    // If we already have a cached result, just open without fetching
+    if (cachedResult) {
+      setIsOpen(true)
+      return
+    }
+
+    // First fetch
     setError(null)
     setToast(null)
     setLoading(true)
@@ -48,7 +67,8 @@ export function GapAnalysisPanel({
         return
       }
 
-      setResult(data)
+      setCachedResult(data)
+      setIsOpen(true)
       setToast({ message: "Gap analysis complete!", type: "success" })
     } catch {
       setError("Network error. Please try again.")
@@ -58,73 +78,66 @@ export function GapAnalysisPanel({
     }
   }
 
-  if (!result) {
-    return (
-      <>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleAnalyze}
-            disabled={loading}
-            className="inline-flex items-center rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading && <Spinner />}
-            {loading ? "Analyzing..." : "Analyze Gap"}
-          </button>
-          {loading && (
-            <span className="text-xs text-slate-400">
-              Computing gap analysis...
-            </span>
-          )}
-          {error && <span className="text-xs text-red-600">{error}</span>}
-        </div>
-        {toast && (
-          <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
-        )}
-      </>
-    )
-  }
-
   return (
-    <div className="mt-3 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-4 space-y-4">
-      {result.cached && (
-        <span className="inline-block text-[10px] text-slate-400 uppercase">
-          Cached result
-        </span>
+    <>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleToggle}
+          disabled={loading}
+          className="inline-flex items-center rounded-xl border border-slate-200/80 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white shadow-sm transition-all hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading && <Spinner />}
+          {loading ? "Analyzing..." : isOpen ? "Hide Analysis" : "Analyze Gap"}
+        </button>
+        {loading && (
+          <span className="text-xs text-slate-400">
+            Computing gap analysis...
+          </span>
+        )}
+        {error && (
+          <span className="text-xs text-red-600">{error}</span>
+        )}
+      </div>
+
+      {isOpen && cachedResult && (
+        <div className="mt-3 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-4 space-y-4">
+          <DeterministicSection
+            data={cachedResult.deterministic}
+            mode={mode}
+          />
+
+          {cachedResult.llm && mode === "employee" && (
+            <EmployeeLLMSection data={cachedResult.llm as EmployeeGapLLM} />
+          )}
+
+          {cachedResult.llm && mode === "hr" && (
+            <HrLLMSection data={cachedResult.llm as HrGapLLM} />
+          )}
+
+          {!cachedResult.llm && (
+            <p className="text-xs text-slate-400">
+              LLM recommendations unavailable.
+            </p>
+          )}
+
+          {SHOW_DEEP_ANALYSIS && (
+            <GapIntelligenceSection
+              jobId={jobId}
+              resumeId={resumeId}
+              mode={mode}
+              hasMissingSkills={
+                cachedResult.deterministic.missing_required.length > 0 ||
+                cachedResult.deterministic.missing_preferred.length > 0
+              }
+            />
+          )}
+        </div>
       )}
-
-      <DeterministicSection
-        data={result.deterministic}
-        mode={mode}
-      />
-
-      {result.llm && mode === "employee" && (
-        <EmployeeLLMSection data={result.llm as EmployeeGapLLM} />
-      )}
-
-      {result.llm && mode === "hr" && (
-        <HrLLMSection data={result.llm as HrGapLLM} />
-      )}
-
-      {!result.llm && (
-        <p className="text-xs text-slate-400">
-          LLM recommendations unavailable.
-        </p>
-      )}
-
-      <GapIntelligenceSection
-        jobId={jobId}
-        resumeId={resumeId}
-        mode={mode}
-        hasMissingSkills={
-          result.deterministic.missing_required.length > 0 ||
-          result.deterministic.missing_preferred.length > 0
-        }
-      />
 
       {toast && (
         <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
       )}
-    </div>
+    </>
   )
 }
 
@@ -530,9 +543,7 @@ function GapIntelligenceSection({
     <div className="border-t border-slate-200 pt-3 space-y-4">
       <div className="flex items-center gap-2">
         <h4 className="text-sm font-semibold text-slate-800">Advanced Gap Intelligence</h4>
-        {result.cached && (
-          <span className="text-[10px] text-slate-400 uppercase">Cached</span>
-        )}
+  
       </div>
       <SkillPlanRoadmap items={result.intelligence.skill_plan} />
       <ResumeOptimizationList items={result.intelligence.resume_optimization} />

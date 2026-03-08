@@ -130,9 +130,7 @@ function ExplanationPanel({
             />
           </svg>
           Explanation
-          {cached && (
-            <span className="text-[10px] text-slate-400 font-normal">(cached)</span>
-          )}
+
         </span>
         <svg
           className={`w-3 h-3 text-slate-400 transition-transform flex-shrink-0 ${open ? "rotate-180" : ""}`}
