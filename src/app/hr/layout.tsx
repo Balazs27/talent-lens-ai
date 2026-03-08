@@ -5,9 +5,8 @@ import { SidebarNav } from "@/components/sidebar-nav"
 
 const hrNav = [
   { href: "/hr/dashboard", label: "Dashboard" },
-  { href: "/hr/jobs", label: "Job Descriptions" },
-  { href: "/hr/jobs/new", label: "+ Create New", indent: true },
-  { href: "/hr/jobs", label: "Candidates" },
+  { href: "/hr/jobs", label: "Jobs & Candidates" },
+  { href: "/hr/jobs/new", label: "+ Create Job", indent: true },
 ]
 
 export default async function HRLayout({

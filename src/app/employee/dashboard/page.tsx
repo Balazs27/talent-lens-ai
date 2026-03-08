@@ -160,18 +160,33 @@ export default async function EmployeeDashboard() {
           aria-hidden="true"
         />
 
-        <div className="relative rounded-[2rem] bg-slate-950 p-8 md:p-10 text-white overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] border border-slate-800/80">
-          {/* Internal light orb */}
+        <div className="relative rounded-[2rem] bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 md:p-10 text-white overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] border border-white/[0.07]">
+          {/* Dot grid texture */}
           <div
-            className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-600/20 blur-[100px] -translate-y-1/3 translate-x-1/3 pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Blue orb accent */}
+          <div
+            className="absolute top-0 right-0 w-[480px] h-[480px] rounded-full bg-blue-500/20 blur-[90px] -translate-y-1/3 translate-x-1/4 pointer-events-none"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-0 left-1/3 w-[300px] h-[300px] rounded-full bg-blue-400/10 blur-[80px] translate-y-1/2 pointer-events-none"
             aria-hidden="true"
           />
 
           <div className="relative">
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue-200">
+            <p className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-300 bg-blue-500/20 border border-blue-400/20 rounded-full px-3 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block" aria-hidden="true" />
               Career Hub
             </p>
-            <h1 className="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+            <h1 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
               Welcome back, {name}
             </h1>
             <p className="mt-2 text-sm text-blue-100/80 max-w-md">
