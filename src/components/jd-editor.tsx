@@ -107,7 +107,10 @@ export function JDEditor() {
         </div>
 
         {error && (
-          <div className="rounded-md bg-red-50 border border-red-200 p-3">
+          <div className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-2.5">
+            <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
             <p className="text-sm text-red-700">{error}</p>
           </div>
         )}
@@ -123,11 +126,16 @@ export function JDEditor() {
       </form>
 
       {loading && (
-        <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 text-center">
-          <p className="text-sm text-slate-500">
-            Analyzing job description and extracting requirements... This may
-            take 5-15 seconds.
-          </p>
+        <div className="rounded-2xl border border-slate-200/60 bg-white/70 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5">
+          <div className="flex items-center gap-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+              <div className="w-5 h-5 rounded-full border-2 border-blue-200 border-t-blue-500 animate-spin" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-700">Analyzing job description…</p>
+              <p className="text-xs text-slate-400 mt-0.5">This may take 5–15 seconds</p>
+            </div>
+          </div>
         </div>
       )}
 
@@ -135,7 +143,14 @@ export function JDEditor() {
         <div className="space-y-4">
           {/* Job metadata */}
           <div className="rounded-2xl border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-5">
-            <h3 className="text-lg font-medium mb-3">Extraction Result</h3>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <svg className="w-3 h-3 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </div>
+              <h3 className="text-sm font-semibold text-slate-800">Job description processed</h3>
+            </div>
             {result.parsed.title && (
               <p className="text-sm text-slate-600">
                 <span className="font-medium">Title:</span>{" "}

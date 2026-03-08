@@ -4,10 +4,10 @@ import { createClient } from "@/lib/supabase/server"
 import { SidebarNav } from "@/components/sidebar-nav"
 
 const employeeNav = [
-  { href: "/employee/dashboard", label: "Dashboard" },
-  { href: "/employee/resume", label: "My Resume" },
-  { href: "/employee/matches", label: "Job Matches" },
-  { href: "/employee/skills", label: "My Skills" },
+  { href: "/employee/dashboard", label: "Dashboard", iconName: "dashboard" as const },
+  { href: "/employee/resume", label: "My Resume", iconName: "resume" as const },
+  { href: "/employee/matches", label: "Job Matches", iconName: "matches" as const },
+  { href: "/employee/skills", label: "My Skills", iconName: "skills" as const },
 ]
 
 export default async function EmployeeLayout({

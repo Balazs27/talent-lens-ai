@@ -3,12 +3,6 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { SidebarNav } from "@/components/sidebar-nav"
 
-const hrNav = [
-  { href: "/hr/dashboard", label: "Dashboard" },
-  { href: "/hr/jobs", label: "Jobs & Candidates" },
-  { href: "/hr/jobs/new", label: "+ Create Job", indent: true },
-]
-
 export default async function HRLayout({
   children,
 }: {
@@ -21,6 +15,23 @@ export default async function HRLayout({
 
   const role = user.user_metadata?.role
   if (role !== "hr" && role !== "admin") redirect("/employee/dashboard")
+
+  // Fetch job count for nav badge
+  const { count: jobCount } = await supabase
+    .from("jobs")
+    .select("id", { count: "exact", head: true })
+    .eq("created_by", user.id)
+
+  const hrNav = [
+    { href: "/hr/dashboard", label: "Dashboard", iconName: "dashboard" as const },
+    {
+      href: "/hr/jobs",
+      label: "Jobs & Candidates",
+      iconName: "jobs" as const,
+      badge: jobCount ?? 0,
+    },
+    { href: "/hr/jobs/new", label: "Create Job", indent: true, iconName: "create" as const },
+  ]
 
   return (
     <div className="min-h-screen flex bg-slate-50 selection:bg-blue-200 selection:text-blue-900">
