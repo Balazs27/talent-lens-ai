@@ -139,9 +139,9 @@ export function CandidateList({ candidates, jobId }: CandidateListProps) {
         </div>
       )}
 
-      {/* Weak candidates section */}
+      {/* Weak candidates section — fade-in on reveal */}
       {showWeak && weak.length > 0 && (
-        <div className="space-y-3 pt-1 opacity-75">
+        <div className="space-y-3 pt-1 opacity-75 animate-[fadeUp_0.3s_ease-out_both]">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-1">
             Weak Candidates
           </p>
