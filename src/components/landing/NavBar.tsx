@@ -18,7 +18,7 @@ export function NavBar() {
       className="fixed top-0 left-0 right-0 z-50 border-b"
       animate={{
         borderColor: scrolled ? "rgba(226,232,240,0.5)" : "rgba(255,255,255,0.1)",
-        backgroundColor: scrolled ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.2)",
+        backgroundColor: scrolled ? "rgba(255,255,255,0.90)" : "rgba(255,255,255,0.2)",
         boxShadow: scrolled
           ? "0 1px 20px -5px rgba(0,0,0,0.08)"
           : "0 0 0 0 rgba(0,0,0,0)",
@@ -46,12 +46,20 @@ export function NavBar() {
           ))}
         </nav>
 
-        <Link
-          href="/login"
-          className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-4 py-2"
-        >
-          Sign In
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/login"
+            className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors px-4 py-2"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/signup"
+            className="btn-shimmer inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-500 transition-all hover:-translate-y-0.5 shadow-[0_0_20px_-5px_rgba(37,99,235,0.35)] active:scale-[0.97]"
+          >
+            Request Demo
+          </Link>
+        </div>
       </div>
     </motion.header>
   );
