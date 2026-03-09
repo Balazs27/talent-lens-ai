@@ -6,7 +6,7 @@ export function AboutSection() {
           Built for Clarity and Scale
         </h2>
         <p className="text-lg md:text-2xl text-slate-600 leading-relaxed font-light">
-          TalentLens wasn't built to be another chat interface. It was engineered to deliver deterministic, explainable results powered by cutting-edge semantic matching. We believe talent decisions should be a science, not a guessing game.
+          Internal Talent Matching MVP wasn't built to be another chat interface. It was engineered to deliver deterministic, explainable results powered by cutting-edge semantic matching. We believe talent decisions should be a science, not a guessing game.
         </p>
       </div>
     </section>

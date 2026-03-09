@@ -31,7 +31,7 @@ export function NavBar() {
           <div className="w-6 h-6 rounded-md bg-blue-600 flex items-center justify-center shadow-sm shadow-blue-600/30">
             <div className="w-2 h-2 bg-white rounded-full" />
           </div>
-          TalentLens
+          Internal Talent Matching MVP
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

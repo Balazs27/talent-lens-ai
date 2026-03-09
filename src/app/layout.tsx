@@ -10,7 +10,7 @@ const fontSans = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "TalentLens AI",
+  title: "Internal Talent Matching MVP",
   description: "AI-powered talent matching for both sides of the hiring table",
 }
 

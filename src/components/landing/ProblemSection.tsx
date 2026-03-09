@@ -47,7 +47,7 @@ export function ProblemSection() {
             transition={{ duration: 0.75, delay: 0.18, ease: "easeOut" }}
           >
             Traditional platforms rely on rigid keyword searches, leaving incredible internal talent undiscovered
-            and forcing recruiters to guess. TalentLens makes matching transparent, accurate, and undeniable.
+            and forcing recruiters to guess. Internal Talent Matching MVP makes matching transparent, accurate, and undeniable.
           </motion.p>
         </div>
 
@@ -101,7 +101,7 @@ export function ProblemSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </div>
-                <span className="text-sm font-bold text-blue-400 uppercase tracking-wider">The TalentLens Way</span>
+                <span className="text-sm font-bold text-blue-400 uppercase tracking-wider">The Internal Talent Matching MVP Way</span>
               </div>
               <ul className="space-y-4">
                 {after.map((item, i) => (

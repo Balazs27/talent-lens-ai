@@ -46,7 +46,7 @@ function ProductDemo() {
           <div className="w-2.5 h-2.5 rounded-full bg-amber-400/50" />
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/50" />
           <div className="ml-2 h-4 flex-1 rounded bg-white/8 border border-white/8 text-[9px] text-white/25 font-mono flex items-center justify-center">
-            talentlens.ai
+            app.itm.ai
           </div>
         </div>
 
@@ -222,7 +222,7 @@ export default function LoginPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
                 </svg>
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">TalentLens AI</span>
+              <span className="text-lg font-bold text-white tracking-tight">Internal Talent Matching MVP</span>
             </Link>
           </motion.div>
 
@@ -266,7 +266,7 @@ export default function LoginPage() {
               Sign in
             </h1>
             <p className="mt-1.5 text-sm text-slate-500">
-              Welcome back to TalentLens AI.
+              Welcome back to Internal Talent Matching MVP.
             </p>
           </div>
 

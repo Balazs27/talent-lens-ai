@@ -68,7 +68,7 @@ export function SidebarNav({
           </div>
           <div>
             <h2 className="text-[15px] font-bold tracking-tight text-slate-900 leading-none">
-              TalentLens
+              Internal Talent Matching MVP
             </h2>
             <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-400 leading-none">
               {roleLabel}
@@ -130,7 +130,7 @@ export function SidebarNav({
         <div className="border-t border-slate-200/60 mb-3" />
         <div className="flex items-center gap-1.5">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
-          <p className="text-[11px] text-slate-400 font-medium">TalentLens AI · Beta</p>
+          <p className="text-[11px] text-slate-400 font-medium">Internal Talent Matching MVP · Beta</p>
         </div>
       </div>
 

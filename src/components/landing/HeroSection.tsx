@@ -185,7 +185,7 @@ export function HeroSection() {
                   </div>
                   <div className="flex-1 mx-2">
                     <div className="h-4 bg-white/70 rounded-md flex items-center px-2.5">
-                      <span className="text-[8px] text-slate-400 font-mono truncate">talentlens.ai/hr/jobs/candidates</span>
+                      <span className="text-[8px] text-slate-400 font-mono truncate">app.itm.ai/hr/jobs/candidates</span>
                     </div>
                   </div>
                 </div>

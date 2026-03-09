@@ -201,7 +201,7 @@ export function ProductPreviewSection() {
                 <div className="w-3 h-3 rounded-full bg-emerald-400/60" />
               </div>
               <div className="mx-auto h-5 w-52 rounded-md bg-white/8 border border-white/10 flex items-center justify-center">
-                <span className="text-[9px] text-white/30 font-mono tracking-wide">app.talentlens.ai/hr/jobs</span>
+                <span className="text-[9px] text-white/30 font-mono tracking-wide">app.itm.ai/hr/jobs</span>
               </div>
             </div>
 
@@ -215,7 +215,7 @@ export function ProductPreviewSection() {
                   <div className="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center flex-shrink-0">
                     <div className="w-1.5 h-1.5 bg-white rounded-full" />
                   </div>
-                  <span className="text-xs font-bold text-white">TalentLens</span>
+                  <span className="text-xs font-bold text-white">Internal Talent Matching MVP</span>
                 </div>
 
                 {navItems.map((item) => (

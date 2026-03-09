@@ -7,10 +7,10 @@ export function ContactSection() {
         <div className="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center shadow-sm shadow-blue-600/30">
           <div className="w-1.5 h-1.5 bg-white rounded-full" />
         </div>
-        <span className="font-bold text-slate-800">TalentLens</span>
+        <span className="font-bold text-slate-800">Internal Talent Matching MVP</span>
       </div>
       <p className="text-sm text-slate-400 mb-6">
-        © {new Date().getFullYear()} TalentLens AI. All rights reserved.
+        © {new Date().getFullYear()} Internal Talent Matching MVP. All rights reserved.
       </p>
       <div className="flex gap-6">
         <Link href="#" className="text-slate-400 hover:text-slate-700 transition-colors text-sm font-medium">Twitter</Link>
